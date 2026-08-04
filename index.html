@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duştaş — Kütahya Duşakabin & Banyo Dekorasyon</title>
+<meta name="description" content="Kütahya'da özel ölçü duşakabin üretimi, duş teknesi, küvet, banyo dolabı ve vitrifiye. Ücretsiz keşif, montaj ve servis. İki showroom.">
+<!-- DEMO: resmî siteyle karışmasın diye arama motorlarına kapalı -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f7f9fb">
+
+<!-- =====================================================================
+     BU SAYFA BİR TASARIM ÖNERİSİDİR — Duştaş'ın resmî sitesi değildir.
+
+     DOĞRULANMIŞ BİLGİ (bağımsız rehberlerden teyitli)
+     · Meydan Mah. Mithat Paşa Cad. No:55 · 0507 537 36 43
+     · Adnan Menderes Bulvarı No:22 · 0534 743 73 23
+     · Ürün grupları: duşakabin, duş teknesi, küvet & jakuzi, banyo dolabı,
+       vitrifiye, banyo dekorasyon, ayna & aksesuar
+
+     DOĞRULANMAMIŞ — sayfada [DOĞRULA] etiketiyle görünür bırakıldı
+     · çalışma saatleri · kuruluş yılı · proje/müşteri sayısı · garanti süresi
+     · "kendi montaj ekibi" · e-posta adresi
+     Uydurma yorum, puan, ödül, bayilik veya marka ortaklığı YOK.
+
+     DEĞİŞTİRİLECEK YERLER (tek tek arayıp değiştir)
+     · Telefon ............... 0507 537 36 43 / 0534 743 73 23
+     · WhatsApp .............. wa.me/905075373643
+     · E-posta ............... [E-POSTA]
+     · [DOĞRULA] / [YIL] / [PROJE] / [GARANTİ] yer tutucuları
+     · Ürün kartları ......... .prod-art SVG'leri → <img> ile değiştir
+     · DEMO notunu sil ....... <section class="demo-note"> + .demo-note CSS
+     · DEMO anahtarını sil ... <div class="demo-bar"> + .demo-bar CSS + demoBar() JS
+
+     SENARYOLAR — ?h=1|2|3 (hero) & ?s=a|b (scroll). Varsayılan: h=1&s=a
+       h=1 media/hero1.*  Aydınlık banyo
+       h=2 media/hero2.*  Su / duş başlığı
+       h=3 media/hero3.*  Showroom
+       s=a frames/a/      Duşakabine giriş
+       s=b frames/b/      Detaydan banyoya
+     Karşılaştırma: senaryolar.html · Teslimde HERO/SCRL sabitlerini sabitle.
+
+     KONTRAST (WCAG 2.1, hesaplanmış — README'de tam tablo)
+     · --aqua #2e93b8 KÜÇÜK METİNDE KULLANILMAZ (paper üzerinde 3.33:1).
+       Metin/vurgu için daima --aqua-deep (5.50:1).
+     · --chrome yalnızca çizgi/dekor (2.33:1).
+     ===================================================================== -->
+
+<style>
+:root{
+  --paper:#f7f9fb;      /* ana zemin — kırık beyaz */
+  --surface:#ffffff;    /* kart zemini */
+  --surface-2:#eef3f7;  /* ikincil bölüm zemini */
+  --ink:#16202b;        /* ana metin */
+  --ink-dim:#5a6874;    /* ikincil metin — paper üzerinde 5.43:1 */
+  --line:rgba(22,32,43,.10);
+  --line-2:rgba(22,32,43,.18);
+  --aqua:#2e93b8;       /* SADECE dekor: çizgi, ikon, gradyan */
+  --aqua-deep:#1c6d8c;  /* metin + birincil buton zemini — 5.50:1 */
+  --aqua-dark:#175f79;  /* buton hover — beyaz metinle 7.12:1 */
+  --aqua-soft:#e3f1f6;  /* çok açık vurgu zemini */
+  --chrome:#9aa7b1;     /* krom/metal detay — SADECE dekor */
+  --wa:#0f7a6d;         /* WhatsApp — beyaz metinle 5.22:1 */
+  --wa-dark:#0b6156;
+  --font-display:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-ui:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --pad:min(6vw,56px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-ui);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--aqua-deep);color:#fff}
+:focus-visible{outline:2px solid var(--aqua-deep);outline-offset:3px}
+
+/* doğrulanmamış bilgi işareti — teslimde gerçek bilgiyle değiştirilecek */
+.tbc{display:inline-block;font-size:.72em;letter-spacing:.1em;font-weight:700;
+  color:var(--aqua-deep);background:var(--aqua-soft);border:1px dashed rgba(28,109,140,.45);
+  border-radius:3px;padding:1px 6px;vertical-align:middle;white-space:nowrap}
+
+/* ============ NAV ============ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px var(--pad);display:flex;align-items:center;justify-content:space-between;
+  transition:background .35s ease, backdrop-filter .35s ease, border-color .35s ease, padding .35s ease;
+  border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(247,249,251,.82);
+  backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-bottom-color:var(--line);padding:13px var(--pad)}
+.brand{display:flex;align-items:center;gap:12px;line-height:1}
+.brand-mono{width:36px;height:36px;display:grid;place-items:center;flex:none;
+  border-radius:8px;background:var(--aqua-deep);color:#fff;
+  font-family:var(--font-display);font-size:19px;font-weight:800;letter-spacing:.02em;
+  box-shadow:0 4px 14px rgba(28,109,140,.28)}
+.brand-text{display:flex;flex-direction:column;gap:5px}
+.brand-name{font-family:var(--font-display);font-size:17px;font-weight:800;
+  letter-spacing:.2em;text-transform:uppercase}
+.brand-sub{font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ink-dim);font-weight:600}
+.nav-menu{display:flex;align-items:center;gap:36px}
+.nav-links{display:flex;gap:30px}
+.nav-links a{font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink-dim);font-weight:700;transition:color .25s;position:relative;white-space:nowrap}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;
+  background:var(--aqua-deep);transition:width .3s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{width:100%}
+/* DEMO sekmesi — teslimde sil */
+.nav-demo{color:var(--aqua-deep) !important;display:inline-flex;align-items:center;gap:7px}
+.nav-demo::before{content:"";width:5px;height:5px;flex:none;border-radius:50%;
+  background:var(--aqua-deep);box-shadow:0 0 0 3px rgba(46,147,184,.22)}
+.nav-cta{padding:11px 20px;border-radius:6px;background:var(--wa);color:#fff;
+  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  white-space:nowrap;transition:background .3s,transform .25s,box-shadow .3s;
+  box-shadow:0 6px 18px rgba(15,122,109,.24)}
+.nav-cta:hover{background:var(--wa-dark);transform:translateY(-1px);
+  box-shadow:0 10px 24px rgba(15,122,109,.32)}
+.nav-toggle{display:none;flex-direction:column;gap:5px;padding:6px;z-index:110}
+.nav-toggle span{width:22px;height:2px;background:var(--ink);display:block;border-radius:2px;
+  transition:transform .3s, opacity .3s}
+.nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav.open .nav-toggle span:nth-child(2){opacity:0}
+.nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ===== DEMO SENARYO ANAHTARI — teslimde bu bloğu ve #demoBar HTML'ini sil ===== */
+.demo-bar{position:fixed;right:14px;bottom:14px;z-index:130;display:flex;align-items:center;
+  gap:10px;padding:9px 10px 9px 14px;border-radius:100px;
+  background:rgba(255,255,255,.94);border:1px solid var(--line-2);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 14px 40px rgba(22,32,43,.18);font-size:10px;
+  transition:opacity .3s, transform .3s}
+.demo-bar.dim{opacity:.36;transform:translateY(4px)}
+.demo-bar:hover{opacity:1;transform:none}
+.demo-bar-t{letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);font-weight:700}
+.demo-seg{display:flex;border:1px solid var(--line-2);border-radius:100px;overflow:hidden}
+.demo-seg button{padding:6px 11px;font-size:10px;letter-spacing:.08em;color:var(--ink-dim);
+  font-weight:600;border-right:1px solid var(--line-2);
+  transition:background .2s,color .2s;white-space:nowrap}
+.demo-seg button:last-child{border-right:0}
+.demo-seg button:hover{background:var(--aqua-soft);color:var(--aqua-deep)}
+.demo-seg button[aria-pressed="true"]{background:var(--aqua-deep);color:#fff;font-weight:700}
+.demo-all{padding:6px 12px;border-radius:100px;background:var(--aqua-soft);
+  color:var(--aqua-deep);letter-spacing:.08em;font-weight:700;white-space:nowrap;
+  transition:background .25s,color .25s}
+.demo-all:hover{background:var(--aqua-deep);color:#fff}
+@media(max-width:860px){
+  .demo-bar{right:8px;left:8px;bottom:74px;justify-content:center;flex-wrap:wrap;
+    border-radius:14px;padding:8px}
+  .demo-bar-t{display:none}
+}
+
+/* ============ HERO ============ */
+.hero{position:relative;height:100vh;height:100svh;min-height:620px;
+  overflow:hidden;background:var(--surface-2)}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+/* video yokken görünen aydınlık yedek arka plan */
+.hero-fallback{position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 62% 58% at 74% 38%,rgba(46,147,184,.20),transparent 64%),
+    radial-gradient(ellipse 46% 62% at 90% 82%,rgba(46,147,184,.12),transparent 62%),
+    linear-gradient(155deg,#ffffff 0%,#e9f1f6 46%,#dbe7ee 100%)}
+.hero-fallback::after{content:"";position:absolute;inset:0;opacity:.85;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 118px,rgba(46,147,184,.10) 118px 119px),
+    repeating-linear-gradient(0deg,transparent 0 96px,rgba(22,32,43,.05) 96px 97px)}
+/* AÇIK SCRIM — metin koyu. Ölçüm için README'deki kontrast tablosuna bak.
+   Yatay: metin bandında en zayıf nokta .56 → siyah video üzerinde 5.09:1
+   Dikey ile üst üste binince metin hizasında 8.4–12.6:1 */
+.hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(0deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.16) 26%,transparent 44%),
+    linear-gradient(180deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.10) 18%,transparent 34%),
+    linear-gradient(90deg,rgba(255,255,255,.80) 0%,rgba(255,255,255,.66) 32%,
+      rgba(255,255,255,.56) 62%,rgba(255,255,255,.28) 100%)}
+.hero-inner{position:relative;z-index:2;height:100%;padding:0 var(--pad);
+  display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:14vh}
+.hero-kick{font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--aqua-deep);margin-bottom:22px;font-weight:700;
+  display:inline-flex;align-items:center;gap:14px;max-width:fit-content}
+.hero-kick::before{content:"";width:40px;height:2px;background:var(--aqua-deep);opacity:.8}
+.hero h1{font-family:var(--font-display);font-weight:800;
+  font-size:clamp(40px,6.6vw,96px);line-height:1.02;letter-spacing:-.02em;
+  max-width:1040px;margin:0 0 26px}
+.hero h1 em{font-style:normal;color:var(--aqua-deep)}
+.hero-sub{font-size:clamp(15px,1.4vw,17.5px);line-height:1.66;color:var(--ink-dim);
+  max-width:520px;margin:0 0 36px;font-weight:500}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-facts{margin-top:34px;display:flex;gap:26px;flex-wrap:wrap;
+  font-size:12px;color:var(--ink-dim);font-weight:600}
+.hero-facts span{display:inline-flex;align-items:center;gap:8px}
+.hero-facts span::before{content:"";width:6px;height:6px;border-radius:50%;
+  background:var(--aqua-deep);flex:none}
+
+.btn{display:inline-flex;align-items:center;gap:11px;padding:15px 26px;font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;font-weight:700;border-radius:6px;
+  transition:transform .25s,background .3s,border-color .3s,color .3s,box-shadow .3s}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-wa{background:var(--wa);color:#fff;border:1px solid var(--wa);
+  box-shadow:0 10px 26px rgba(15,122,109,.26)}
+.btn-wa:hover{background:var(--wa-dark);border-color:var(--wa-dark);
+  transform:translateY(-2px);box-shadow:0 14px 34px rgba(15,122,109,.34)}
+.btn-primary{background:var(--aqua-deep);color:#fff;border:1px solid var(--aqua-deep);
+  box-shadow:0 10px 26px rgba(28,109,140,.24)}
+.btn-primary:hover{background:var(--aqua-dark);border-color:var(--aqua-dark);
+  transform:translateY(-2px);box-shadow:0 14px 34px rgba(28,109,140,.32)}
+.btn-ghost{border:1px solid var(--line-2);color:var(--ink);background:rgba(255,255,255,.7)}
+.btn-ghost:hover{border-color:var(--aqua-deep);color:var(--aqua-deep);
+  background:#fff;transform:translateY(-2px)}
+.scroll-cue{position:absolute;right:var(--pad);bottom:5vh;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-dim);
+  font-weight:700}
+.scroll-cue .line{width:2px;height:56px;border-radius:2px;
+  background:linear-gradient(var(--aqua-deep),transparent);
+  animation:cue 2s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(.15);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:top}
+  100%{transform:scaleY(.15);transform-origin:bottom}}
+
+/* =========================================================
+   SCROLL-SCRUB SAHNE  (video → 120 JPG kare → canvas)
+   ========================================================= */
+.scene{position:relative;height:520vh;background:var(--surface-2)}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.scrub-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+/* AÇIK SCRIM — metin bandının bittiği %42'de .60 → siyah video üzerinde 5.78:1 */
+.grade{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,255,255,.86) 0%,rgba(255,255,255,.60) 42%,
+    rgba(255,255,255,.18) 72%,rgba(255,255,255,.06) 100%)}
+.grade-tint{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:multiply;
+  background:linear-gradient(120deg,rgba(46,147,184,.10),transparent 58%)}
+.stage{position:absolute;left:var(--pad);right:var(--pad);top:50%;z-index:3;
+  pointer-events:none;will-change:opacity,transform}
+.stage-inner{max-width:720px}
+.stage h2{font-family:var(--font-display);font-weight:800;
+  font-size:clamp(34px,5.2vw,68px);line-height:1.04;letter-spacing:-.02em;
+  text-shadow:0 1px 2px rgba(255,255,255,.85)}
+.stage h2 em{font-style:normal;color:var(--aqua-deep)}
+.stage p{margin-top:20px;max-width:440px;font-size:15.5px;line-height:1.68;
+  color:var(--ink-dim);font-weight:500;text-shadow:0 1px 2px rgba(255,255,255,.9)}
+.stage-num{font-size:11px;letter-spacing:.3em;font-weight:800;
+  color:var(--aqua-deep);margin-bottom:16px;display:block}
+
+/* kapanış kartı */
+.scrub-card{position:absolute;right:var(--pad);bottom:9vh;z-index:4;width:min(400px,86vw);
+  padding:30px 28px;border:1px solid var(--line);border-radius:12px;
+  background:rgba(255,255,255,.93);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 30px 70px rgba(22,32,43,.18);opacity:0;will-change:opacity,transform}
+.scrub-card h3{font-family:var(--font-display);font-weight:800;font-size:26px;
+  line-height:1.14;margin-bottom:8px;letter-spacing:-.015em}
+.scrub-card h3 em{font-style:normal;color:var(--aqua-deep)}
+.scrub-card .loc{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-dim);font-weight:700;margin-bottom:20px}
+.scrub-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  margin-bottom:20px}
+.scrub-specs div span{display:block}
+.scrub-specs .v{font-family:var(--font-display);font-size:17px;font-weight:800;
+  color:var(--aqua-deep);line-height:1.1;letter-spacing:-.01em}
+.scrub-specs .l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-dim);font-weight:700;margin-top:7px}
+.scrub-card .btn{width:100%;justify-content:center;pointer-events:auto}
+.scrub-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:4;
+  font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-dim);
+  font-weight:700;display:flex;align-items:center;gap:12px;will-change:opacity;
+  text-shadow:0 1px 2px rgba(255,255,255,.9)}
+.scrub-hint::after{content:"";width:34px;height:2px;border-radius:2px;background:var(--aqua-deep);
+  animation:hintline 1.8s ease-in-out infinite}
+@keyframes hintline{0%,100%{opacity:.25;transform:translateX(-6px)}50%{opacity:1;transform:translateX(6px)}}
+.scrub-bar{position:absolute;left:0;bottom:0;height:3px;z-index:5;width:0%;
+  background:linear-gradient(90deg,var(--aqua-deep),var(--aqua))}
+
+/* ============ SECTION SHARED ============ */
+.section{padding:120px var(--pad);position:relative}
+.section-head{max-width:1200px;margin:0 auto 60px}
+.kick{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--aqua-deep);
+  margin-bottom:18px;font-weight:800;display:inline-flex;align-items:center;gap:14px}
+.kick::before{content:"";width:30px;height:2px;background:var(--aqua-deep);opacity:.8}
+.section h2{font-family:var(--font-display);font-weight:800;
+  font-size:clamp(32px,4.6vw,58px);line-height:1.06;letter-spacing:-.02em;max-width:880px}
+.section h2 em{font-style:normal;color:var(--aqua-deep)}
+.section-lead{font-size:16px;line-height:1.66;color:var(--ink-dim);
+  max-width:560px;margin-top:22px;font-weight:500}
+
+/* ============ ÜRÜNLER ============ */
+.products{background:var(--paper)}
+.prod-grid{max-width:1200px;margin:0 auto;display:grid;
+  grid-template-columns:repeat(3,1fr);gap:24px 22px}
+.prod-card{display:flex;flex-direction:column;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  transition:border-color .4s,transform .4s,box-shadow .4s}
+.prod-card:hover{border-color:rgba(28,109,140,.35);transform:translateY(-5px);
+  box-shadow:0 22px 50px rgba(22,32,43,.10)}
+/* FOTOĞRAF GELİNCE: <div class="prod-art">…</div> yerine
+   <img class="prod-art" src="urunler/1.jpg" alt="…"> koy, ölçüler aynı kalır. */
+.prod-art{position:relative;aspect-ratio:4/3;overflow:hidden;
+  background:linear-gradient(160deg,#ffffff 0%,var(--aqua-soft) 100%);
+  border-bottom:1px solid var(--line)}
+.prod-art svg{position:absolute;inset:0;width:100%;height:100%;
+  transition:transform .9s cubic-bezier(.2,.5,.2,1)}
+.prod-card:hover .prod-art svg{transform:scale(1.05)}
+.prod-body{padding:24px 24px 26px;display:flex;flex-direction:column;flex:1;gap:10px}
+.prod-meta{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--aqua-deep);font-weight:800}
+.prod-title{font-family:var(--font-display);font-size:21px;font-weight:800;
+  line-height:1.16;letter-spacing:-.015em}
+.prod-desc{font-size:14px;line-height:1.65;color:var(--ink-dim);font-weight:500;flex:1}
+.prod-ask{margin-top:6px;display:inline-flex;align-items:center;gap:8px;
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;
+  color:var(--aqua-deep);transition:gap .25s}
+.prod-card:hover .prod-ask{gap:14px}
+
+/* ============ NEDEN BİZ ============ */
+.why{background:var(--surface-2)}
+.why-grid{max-width:1200px;margin:0 auto;display:grid;
+  grid-template-columns:repeat(4,1fr);gap:20px}
+.why-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:32px 26px 30px;position:relative;overflow:hidden;
+  transition:transform .4s,box-shadow .4s,border-color .4s}
+.why-card:hover{transform:translateY(-4px);border-color:rgba(28,109,140,.3);
+  box-shadow:0 20px 46px rgba(22,32,43,.09)}
+.why-ico{width:46px;height:46px;margin-bottom:22px;border-radius:10px;
+  display:grid;place-items:center;background:var(--aqua-soft);color:var(--aqua-deep)}
+.why-ico svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.6;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.why-card h3{font-family:var(--font-display);font-weight:800;font-size:18.5px;
+  margin-bottom:11px;letter-spacing:-.01em}
+.why-card p{font-size:14px;line-height:1.66;color:var(--ink-dim);font-weight:500}
+
+/* istatistik şeridi — HEPSİ YER TUTUCU, uydurma sayı yok */
+.stats{max-width:1200px;margin:56px auto 0;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:20px;background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:34px 30px}
+.stat{text-align:center}
+.stat .num{font-family:var(--font-display);font-size:clamp(22px,2.4vw,30px);font-weight:800;
+  color:var(--aqua-deep);line-height:1.1;display:block;margin-bottom:10px;
+  letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.stat .num.ph{color:var(--aqua-deep);background:var(--aqua-soft);
+  border:1px dashed rgba(28,109,140,.45);border-radius:5px;padding:2px 8px;
+  display:inline-block;font-size:clamp(16px,1.7vw,21px)}
+.stat .lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-dim);font-weight:700;line-height:1.4}
+.stats-note{max-width:1200px;margin:14px auto 0;font-size:12px;color:var(--ink-dim);
+  text-align:center;font-weight:500}
+
+/* ============ SÜREÇ ADIMLARI ============ */
+.process{background:var(--paper)}
+.steps{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.step{padding:32px 28px 0 0;position:relative;border-top:2px solid var(--line)}
+.step::before{content:"";position:absolute;left:0;top:-2px;width:0;height:2px;
+  background:var(--aqua-deep);transition:width .9s cubic-bezier(.2,.6,.2,1)}
+.step.in::before{width:100%}
+.step .n{font-family:var(--font-display);font-size:12px;letter-spacing:.26em;font-weight:800;
+  color:var(--aqua-deep);display:block;margin-bottom:16px}
+.step h3{font-family:var(--font-display);font-weight:800;font-size:20px;margin-bottom:11px;
+  letter-spacing:-.01em}
+.step p{font-size:14px;line-height:1.66;color:var(--ink-dim);font-weight:500}
+
+/* ============ SHOWROOM ============ */
+.showroom{background:var(--surface-2)}
+.shop-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.shop{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:34px 32px 32px;display:flex;flex-direction:column;gap:18px;
+  transition:transform .4s,box-shadow .4s,border-color .4s}
+.shop:hover{transform:translateY(-4px);border-color:rgba(28,109,140,.3);
+  box-shadow:0 22px 50px rgba(22,32,43,.10)}
+.shop-tag{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--aqua-deep);font-weight:800}
+.shop h3{font-family:var(--font-display);font-weight:800;font-size:24px;letter-spacing:-.015em}
+.shop-rows{display:flex;flex-direction:column;gap:13px;padding:18px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.shop-row{display:flex;gap:13px;align-items:flex-start;font-size:14.5px;line-height:1.55}
+.shop-row svg{width:17px;height:17px;flex:none;margin-top:3px;stroke:var(--aqua-deep);
+  stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.shop-row .k{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-dim);font-weight:800;margin-bottom:4px}
+.shop-row a:hover{color:var(--aqua-deep)}
+.shop-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+.shop-cta .btn{flex:1 1 auto;justify-content:center;padding:13px 18px;font-size:10.5px}
+
+/* ============ İLETİŞİM ============ */
+.contact{background:var(--paper);text-align:center;padding:130px var(--pad)}
+.contact .section-head{margin:0 auto 48px;text-align:center}
+.contact .kick{justify-content:center}
+.contact h2{margin:0 auto}
+.contact-lead{font-size:16.5px;line-height:1.66;color:var(--ink-dim);
+  max-width:580px;margin:22px auto 0;font-weight:500}
+.contact-tiles{max-width:1080px;margin:0 auto 40px;display:grid;
+  grid-template-columns:repeat(3,1fr);gap:16px}
+.tile{padding:34px 24px;border:1px solid var(--line);border-radius:12px;
+  background:var(--surface);transition:transform .35s,border-color .35s,box-shadow .35s}
+.tile:hover{transform:translateY(-4px);border-color:rgba(28,109,140,.3);
+  box-shadow:0 20px 44px rgba(22,32,43,.09)}
+.tile-icon{width:44px;height:44px;margin:0 auto 20px;display:grid;place-items:center;
+  border-radius:50%;background:var(--aqua-soft);color:var(--aqua-deep)}
+.tile-icon svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.6;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.tile-lbl{font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--aqua-deep);margin-bottom:11px;font-weight:800}
+.tile-val{font-family:var(--font-display);font-size:17px;font-weight:700;
+  color:var(--ink);line-height:1.45;letter-spacing:-.01em}
+.tile-val a{transition:color .25s}
+.tile-val a:hover{color:var(--aqua-deep)}
+.tile-sub{font-size:12.5px;color:var(--ink-dim);margin-top:8px;font-weight:500}
+.contact-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ============ DEMO NOTU — teslimde bu bölümü sil ============ */
+.demo-note{background:var(--surface-2);padding:0 var(--pad) 70px}
+.demo-note-inner{max-width:1200px;margin:0 auto;background:var(--aqua-soft);
+  border:1px dashed rgba(28,109,140,.45);border-radius:12px;
+  padding:26px 30px;display:flex;gap:18px;align-items:flex-start}
+.demo-note-inner svg{width:22px;height:22px;flex:none;margin-top:2px;stroke:var(--aqua-deep);
+  stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.demo-note b{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--aqua-deep);font-weight:800;margin-bottom:8px}
+.demo-note p{font-size:14.5px;line-height:1.65;color:var(--ink);font-weight:500}
+
+/* ============ FOOTER ============ */
+footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px var(--pad) 36px}
+.foot-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr auto;
+  gap:36px;align-items:center}
+.foot-links{display:flex;gap:28px;flex-wrap:wrap}
+.foot-links a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-dim);font-weight:700;transition:color .25s}
+.foot-links a:hover{color:var(--aqua-deep)}
+.foot-copy{max-width:1200px;margin:28px auto 0;padding-top:22px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  font-size:11.5px;color:var(--ink-dim);font-weight:500;flex-wrap:wrap}
+
+/* ============ MOBİL SABİT CTA ÇUBUĞU ============ */
+.mbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:120;
+  padding:9px 10px calc(9px + env(safe-area-inset-bottom));gap:9px;
+  background:rgba(255,255,255,.96);border-top:1px solid var(--line);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 -6px 24px rgba(22,32,43,.10)}
+.mbar a{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 10px;border-radius:8px;font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:800}
+.mbar svg{width:17px;height:17px;flex:none}
+.mbar .m-wa{background:var(--wa);color:#fff}
+.mbar .m-tel{background:var(--surface);color:var(--ink);border:1px solid var(--line-2)}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(28px);
+  transition:opacity .9s ease, transform .9s cubic-bezier(.2,.6,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1400px){
+  .nav-menu{gap:24px}
+  .nav-links{gap:19px}
+  .nav-links a{letter-spacing:.14em}
+  .nav-cta{padding:10px 14px;letter-spacing:.1em}
+}
+@media(max-width:1080px){
+  .prod-grid{grid-template-columns:repeat(2,1fr)}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr);gap:32px 0}
+}
+/* sıkılaştırılmış nav ~1120px ister; altında hamburger'e geç */
+@media(max-width:1160px){
+  .nav-links,.nav-cta{display:none}
+  .nav-toggle{display:flex}
+  .nav.open .nav-menu{display:flex}
+  .nav-menu{display:none;position:fixed;inset:77px 0 0;background:rgba(247,249,251,.98);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    flex-direction:column;align-items:stretch;padding:30px min(6vw,56px);gap:0;overflow-y:auto}
+  .nav.scrolled .nav-menu{inset:63px 0 0}
+  .nav-menu .nav-links{display:flex;flex-direction:column;gap:0}
+  .nav-menu .nav-links a{font-size:16px;letter-spacing:.12em;color:var(--ink);
+    padding:16px 0;border-bottom:1px solid var(--line)}
+  .nav-menu .nav-links a::after{display:none}
+  .nav-menu .nav-cta{display:inline-flex;justify-content:center;margin-top:22px;font-size:11.5px}
+}
+@media(max-width:900px){
+  .stats{grid-template-columns:repeat(2,1fr);gap:28px 20px}
+  .shop-grid{grid-template-columns:1fr}
+  .section{padding:86px 22px}
+  .contact{padding:86px 22px}
+  .demo-note{padding:0 22px 60px}
+  .contact-tiles{grid-template-columns:1fr;gap:14px}
+  .scene{height:400vh}
+  .stage h2{font-size:clamp(28px,7vw,42px)}
+  .stage p{font-size:14.5px}
+  .scrub-card{left:22px;right:22px;width:auto;bottom:12vh;padding:24px 22px}
+  .scrub-card h3{font-size:22px}
+}
+@media(max-width:860px){
+  .mbar{display:flex}
+  body{padding-bottom:74px}
+  .scroll-cue{display:none}
+}
+@media(max-width:680px){
+  :root{--pad:20px}
+  .nav{padding:14px 20px}
+  .nav.scrolled{padding:11px 20px}
+  .brand-mono{width:32px;height:32px;font-size:17px}
+  .brand-name{font-size:15px;letter-spacing:.16em}
+  .brand-sub{font-size:8px;letter-spacing:.22em}
+  .nav-menu{inset:62px 0 0;padding:30px 22px}
+  .nav.scrolled .nav-menu{inset:56px 0 0}
+  .nav-menu .nav-links a{font-size:15px;padding:15px 0}
+  .hero-inner{padding-bottom:13vh}
+  .hero-cta{gap:10px}
+  .hero-facts{gap:14px 20px;margin-top:26px;font-size:11.5px}
+  .btn{padding:13px 20px;font-size:10.5px;letter-spacing:.14em}
+  .prod-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;gap:28px 0}
+  .step{padding-right:0}
+  .stats{padding:26px 20px}
+  .demo-note-inner{flex-direction:column;gap:12px;padding:22px}
+  .foot-inner{grid-template-columns:1fr}
+  .foot-copy{flex-direction:column;text-align:center}
+  .scrub-specs{gap:9px}
+  .scrub-specs .v{font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .hero-video{display:none}
+  .scroll-cue .line,.scrub-hint::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Anasayfa">
+    <span class="brand-mono" aria-hidden="true">D</span>
+    <span class="brand-text">
+      <span class="brand-name">Duştaş</span>
+      <span class="brand-sub">Kütahya · Duşakabin &amp; Banyo</span>
+    </span>
+  </a>
+
+  <div class="nav-menu" id="navMenu">
+    <div class="nav-links">
+      <a href="#surec">Süreç</a>
+      <a href="#urunler">Ürünler</a>
+      <a href="#neden">Neden Biz</a>
+      <a href="#showroom">Showroom</a>
+      <a href="#iletisim">İletişim</a>
+      <!-- DEMO sekmesi — teslimde sil -->
+      <a href="senaryolar.html" class="nav-demo">Senaryolar</a>
+    </div>
+    <a class="nav-cta" target="_blank" rel="noopener"
+       href="https://wa.me/905075373643?text=Merhaba%2C%20du%C5%9Fakabin%20i%C3%A7in%20fiyat%20almak%20istiyorum.">WhatsApp'tan Teklif</a>
+  </div>
+
+  <button class="nav-toggle" aria-label="Menüyü aç" aria-expanded="false" id="navToggle">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-fallback" aria-hidden="true"></div>
+  <!-- kaynaklar senaryoya göre JS ile eklenir (?h=1|2|3) -->
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" id="heroVideo"></video>
+  <div class="hero-scrim"></div>
+
+  <div class="hero-inner">
+    <p class="hero-kick">Duşakabin &amp; Banyo Dekorasyon · Kütahya</p>
+    <h1>Banyonuz ne ölçüde olursa olsun,<br><em>duşakabini ona göre üretiriz.</em></h1>
+    <p class="hero-sub">Köşe, oval, sürgülü, katlanır ya da tamamen özel ölçü. Keşif ve ölçü bizden, üretim bizden, montaj bizden. Kütahya'da iki showroom.</p>
+    <div class="hero-cta">
+      <a class="btn btn-wa" target="_blank" rel="noopener"
+         href="https://wa.me/905075373643?text=Merhaba%2C%20du%C5%9Fakabin%20i%C3%A7in%20fiyat%20almak%20istiyorum.">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.47c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+        WhatsApp'tan Teklif Al
+      </a>
+      <a href="#urunler" class="btn btn-ghost">Ürünleri Gör <span aria-hidden="true">→</span></a>
+    </div>
+    <p class="hero-facts">
+      <span>Özel ölçü üretim</span>
+      <span>Ücretsiz keşif &amp; ölçü</span>
+      <span>Montaj ve servis</span>
+    </p>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span>kaydır</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+<!-- =========================================================
+     SCROLL-SCRUB SAHNE — kaydırdıkça video kare kare ilerler
+     frames/a|b/0001.jpg … 0120.jpg  (yoksa prosedürel placeholder)
+     ========================================================= -->
+<section class="scene" id="surec" aria-label="Duşakabin süreci">
+  <div class="stick">
+    <canvas class="scrub-canvas" id="scrubCanvas" aria-hidden="true"></canvas>
+    <div class="grade" aria-hidden="true"></div>
+    <div class="grade-tint" aria-hidden="true"></div>
+
+    <div class="stage" id="st1">
+      <div class="stage-inner">
+        <span class="stage-num">01 — ÖLÇÜ</span>
+        <h2>Önce banyonuza<br><em>geliriz.</em></h2>
+        <p>Hazır ölçü zorlamıyoruz. Duvarın şakülünü, zeminin eğimini ve süpürgeliği yerinde ölçüyoruz — cam sonradan kesilmiyor.</p>
+      </div>
+    </div>
+
+    <div class="stage" id="st2">
+      <div class="stage-inner">
+        <span class="stage-num">02 — ÜRETİM</span>
+        <h2>Cam ve profil,<br><em>sizin ölçünüzde.</em></h2>
+        <p>Model, cam tipi, profil rengi ve açılış yönü seçilir; duşakabin bu ölçülere göre üretilir. Ne fazla silikon ne de boşluk kalır.</p>
+      </div>
+    </div>
+
+    <div class="stage" id="st3">
+      <div class="stage-inner">
+        <span class="stage-num">03 — MONTAJ</span>
+        <h2>Aynı gün takılır,<br><em>aynı gün kullanılır.</em></h2>
+        <p>Montaj ekibi gelir, kurar, siler ve test eder. Sonrasında da tekerlek, conta ve menteşe için servis aynı numaradan devam eder.</p>
+      </div>
+    </div>
+
+    <aside class="scrub-card" id="scrubCard">
+      <h3>Ölçüyü <em>biz alalım.</em></h3>
+      <p class="loc">Kütahya merkez ve çevresi</p>
+      <div class="scrub-specs">
+        <div><span class="v">Ücretsiz</span><span class="l">Keşif &amp; Ölçü</span></div>
+        <div><span class="v">Özel</span><span class="l">Ölçü Üretim</span></div>
+        <div><span class="v">Montaj</span><span class="l">Kendi Ekibimiz</span></div>
+      </div>
+      <a class="btn btn-wa" target="_blank" rel="noopener"
+         href="https://wa.me/905075373643?text=Merhaba%2C%20banyom%20i%C3%A7in%20%C3%BCcretsiz%20ke%C5%9Fif%20ve%20%C3%B6l%C3%A7%C3%BC%20randevusu%20almak%20istiyorum.">
+        Ölçü Randevusu Al <span aria-hidden="true">→</span>
+      </a>
+    </aside>
+
+    <div class="scrub-hint" id="scrubHint" aria-hidden="true"><span>kaydırmaya devam edin</span></div>
+    <div class="scrub-bar" id="scrubBar" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ============ ÜRÜNLER ============ -->
+<section class="section products" id="urunler">
+  <div class="section-head reveal">
+    <p class="kick">Ürünler</p>
+    <h2>Banyonun tamamı <em>tek adreste.</em></h2>
+    <p class="section-lead">Duşakabinden dolabına, tekneden aynasına kadar hepsi aynı showroom'da. Beğendiğiniz modelin fiyatını WhatsApp'tan tek mesajla sorabilirsiniz.</p>
+  </div>
+
+  <div class="prod-grid reveal">
+    <!-- FOTOĞRAF GELİNCE: <div class="prod-art">…</div> yerine
+         <img class="prod-art" src="urunler/1.jpg" alt="..."> koy. -->
+
+    <article class="prod-card">
+      <div class="prod-art" aria-hidden="true">
+        <!-- köşe duşakabin — plan görünüş -->
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none"
+             stroke="#1c6d8c" stroke-width="1.6" opacity=".62" stroke-linecap="round">
+          <path d="M70 60v170h230" stroke="#16202b" stroke-width="2.4" opacity=".45"/>
+          <path d="M70 110h60M70 110a120 120 0 0 1 120 120v0" />
+          <path d="M190 230h60"/>
+          <path d="M84 124a92 92 0 0 1 92 92" stroke-width="1" opacity=".55"/>
+          <circle cx="70" cy="110" r="5" fill="#1c6d8c" stroke="none"/>
+          <circle cx="190" cy="230" r="5" fill="#1c6d8c" stroke="none"/>
+          <path d="M130 110v-26M250 230h26" stroke-width="1" opacity=".6"/>
+          <path d="M70 84h60M126 80l4 4-4 4M74 80l-4 4 4 4" stroke-width="1" opacity=".7"/>
+          <path d="M276 230v-60M272 174l4-4 4 4" stroke-width="1" opacity=".7"/>
+          <path d="M100 200h44v30h-44z" stroke-width="1" opacity=".45"/>
+          <path d="M96 60v20M112 60v20M128 60v20" stroke-width=".9" opacity=".35"/>
+        </svg>
+      </div>
+      <div class="prod-body">
+        <p class="prod-meta">Özel Ölçü</p>
+        <h3 class="prod-title">Duşakabin Sistemleri</h3>
+        <p class="prod-desc">Köşe, oval, çeyrek daire, sürgülü, katlanır ve telefon kulübesi modelleri. Siyah, krom, mat profil seçenekleriyle.</p>
+        <a class="prod-ask" target="_blank" rel="noopener"
+           href="https://wa.me/905075373643?text=Merhaba%2C%20du%C5%9Fakabin%20sistemleri%20i%C3%A7in%20fiyat%20almak%20istiyorum.">Fiyat sor <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
+    <article class="prod-card">
+      <div class="prod-art" aria-hidden="true">
+        <!-- duş teknesi — kesit -->
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none"
+             stroke="#1c6d8c" stroke-width="1.6" opacity=".62" stroke-linecap="round">
+          <path d="M60 190h280" stroke="#16202b" stroke-width="2.4" opacity=".45"/>
+          <path d="M80 190v-34a10 10 0 0 1 10-10h220a10 10 0 0 1 10 10v34"/>
+          <path d="M92 158h216" stroke-width="1" opacity=".55"/>
+          <path d="M92 158c40 12 90 18 108 18s68-6 108-18" stroke-width="1.2" opacity=".7"/>
+          <circle cx="200" cy="176" r="9"/><circle cx="200" cy="176" r="3.5" opacity=".7"/>
+          <path d="M200 185v22M194 203l6 6 6-6" stroke-width="1.1" opacity=".6"/>
+          <path d="M60 120h60M116 116l4 4-4 4M64 116l-4 4 4 4" stroke-width="1" opacity=".7"/>
+          <path d="M340 146v44M336 150l4-4 4 4M336 186l4 4 4-4" stroke-width="1" opacity=".7"/>
+          <path d="M120 100h160M120 96v8M280 96v8" stroke-width=".9" opacity=".4"/>
+          <path d="M150 128a18 18 0 0 1 18-18" stroke-width=".9" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="prod-body">
+        <p class="prod-meta">Akrilik &amp; Taş</p>
+        <h3 class="prod-title">Duş Tekneleri</h3>
+        <p class="prod-desc">Sırlı, akrilik ve ince profilli tekneler; kare, dikdörtgen ve oval ölçülerde. Sifon ve ayak seti dahil.</p>
+        <a class="prod-ask" target="_blank" rel="noopener"
+           href="https://wa.me/905075373643?text=Merhaba%2C%20du%C5%9F%20teknesi%20i%C3%A7in%20fiyat%20almak%20istiyorum.">Fiyat sor <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
+    <article class="prod-card">
+      <div class="prod-art" aria-hidden="true">
+        <!-- küvet & jakuzi — plan + jetler -->
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none"
+             stroke="#1c6d8c" stroke-width="1.6" opacity=".62" stroke-linecap="round">
+          <rect x="66" y="70" width="268" height="160" rx="26"/>
+          <rect x="82" y="86" width="236" height="128" rx="18" stroke-width="1.1" opacity=".6"/>
+          <circle cx="112" cy="150" r="7"/><circle cx="112" cy="150" r="2.5" fill="#1c6d8c" stroke="none"/>
+          <circle cx="288" cy="118" r="7"/><circle cx="288" cy="118" r="2.5" fill="#1c6d8c" stroke="none"/>
+          <circle cx="288" cy="182" r="7"/><circle cx="288" cy="182" r="2.5" fill="#1c6d8c" stroke="none"/>
+          <circle cx="200" cy="96" r="7"/><circle cx="200" cy="96" r="2.5" fill="#1c6d8c" stroke="none"/>
+          <circle cx="200" cy="204" r="7"/><circle cx="200" cy="204" r="2.5" fill="#1c6d8c" stroke="none"/>
+          <circle cx="300" cy="150" r="10" stroke-width="1.1"/>
+          <path d="M300 144v12M294 150h12" stroke-width="1" opacity=".7"/>
+          <path d="M66 50h268M66 46v8M334 46v8" stroke-width=".9" opacity=".45"/>
+          <path d="M356 70v160M352 74l4-4 4 4M352 226l4 4 4-4" stroke-width="1" opacity=".6"/>
+          <path d="M140 130a26 26 0 0 1 26-26" stroke-width=".9" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="prod-body">
+        <p class="prod-meta">Küvet · Jakuzi</p>
+        <h3 class="prod-title">Küvet &amp; Jakuzi</h3>
+        <p class="prod-desc">Dikdörtgen, compact ve köşe jakuzi modelleri; oturmalı ve tam boy küvetler. Panel, ayak ve tesisat çözümüyle birlikte.</p>
+        <a class="prod-ask" target="_blank" rel="noopener"
+           href="https://wa.me/905075373643?text=Merhaba%2C%20k%C3%BCvet%20ve%20jakuzi%20i%C3%A7in%20fiyat%20almak%20istiyorum.">Fiyat sor <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
+    <article class="prod-card">
+      <div class="prod-art" aria-hidden="true">
+        <!-- banyo dolabı — ön görünüş -->
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none"
+             stroke="#1c6d8c" stroke-width="1.6" opacity=".62" stroke-linecap="round">
+          <rect x="96" y="150" width="208" height="96" rx="6"/>
+          <path d="M200 150v96" stroke-width="1.1"/>
+          <path d="M96 200h208" stroke-width="1" opacity=".5"/>
+          <path d="M176 178h16M208 178h16" stroke-width="3" opacity=".8"/>
+          <path d="M176 222h16M208 222h16" stroke-width="3" opacity=".8"/>
+          <path d="M88 150h224a6 6 0 0 1 6 6v6H82v-6a6 6 0 0 1 6-6z" stroke-width="1.2"/>
+          <ellipse cx="200" cy="140" rx="46" ry="13" stroke-width="1.4"/>
+          <path d="M200 118v14" stroke-width="1.6"/>
+          <path d="M186 118h28" stroke-width="1.6"/>
+          <path d="M200 118v-14a12 12 0 0 1 12-12h10" stroke-width="1.4"/>
+          <rect x="128" y="56" width="144" height="52" rx="5" stroke-width="1.2" opacity=".75"/>
+          <path d="M136 64h30M136 74h18" stroke-width=".9" opacity=".45"/>
+          <path d="M96 260h208M96 256v8M304 256v8" stroke-width=".9" opacity=".45"/>
+        </svg>
+      </div>
+      <div class="prod-body">
+        <p class="prod-meta">Banyo Mobilyası</p>
+        <h3 class="prod-title">Banyo Dolapları</h3>
+        <p class="prod-desc">Ayaklı ve asma dolaplar, üst modül ve boy dolap. Nem almayan gövde, yavaş kapanan menteşe, lavabo dahil takım.</p>
+        <a class="prod-ask" target="_blank" rel="noopener"
+           href="https://wa.me/905075373643?text=Merhaba%2C%20banyo%20dolab%C4%B1%20i%C3%A7in%20fiyat%20almak%20istiyorum.">Fiyat sor <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
+    <article class="prod-card">
+      <div class="prod-art" aria-hidden="true">
+        <!-- vitrifiye & armatür -->
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none"
+             stroke="#1c6d8c" stroke-width="1.6" opacity=".62" stroke-linecap="round">
+          <path d="M112 150h96a8 8 0 0 1 8 8v10a34 34 0 0 1-34 34h-44a34 34 0 0 1-34-34v-10a8 8 0 0 1 8-8z"/>
+          <path d="M160 202v40" stroke-width="1.4"/>
+          <path d="M144 242h32" stroke-width="1.4"/>
+          <ellipse cx="160" cy="166" rx="34" ry="9" stroke-width="1" opacity=".5"/>
+          <path d="M160 122v22" stroke-width="1.8"/>
+          <path d="M160 122h-16v-14" stroke-width="1.8"/>
+          <circle cx="144" cy="102" r="6" stroke-width="1.4"/>
+          <rect x="252" y="128" width="72" height="90" rx="10"/>
+          <rect x="258" y="88" width="60" height="34" rx="7" stroke-width="1.2" opacity=".75"/>
+          <path d="M266 100h20" stroke-width="2.4" opacity=".7"/>
+          <ellipse cx="288" cy="168" rx="22" ry="30" stroke-width="1" opacity=".5"/>
+          <path d="M252 226h72" stroke-width="1.2" opacity=".6"/>
+          <path d="M100 268h224M100 264v8M324 264v8" stroke-width=".9" opacity=".45"/>
+        </svg>
+      </div>
+      <div class="prod-body">
+        <p class="prod-meta">Vitrifiye · Armatür</p>
+        <h3 class="prod-title">Vitrifiye &amp; Armatür</h3>
+        <p class="prod-desc">Klozet, lavabo, rezervuar ve gömme sistemler; batarya, duş seti ve yağmurlama başlıkları. Tesisat uyumu showroom'da netleşir.</p>
+        <a class="prod-ask" target="_blank" rel="noopener"
+           href="https://wa.me/905075373643?text=Merhaba%2C%20vitrifiye%20ve%20armat%C3%BCr%20i%C3%A7in%20fiyat%20almak%20istiyorum.">Fiyat sor <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
+    <article class="prod-card">
+      <div class="prod-art" aria-hidden="true">
+        <!-- ayna & aksesuar -->
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none"
+             stroke="#1c6d8c" stroke-width="1.6" opacity=".62" stroke-linecap="round">
+          <rect x="106" y="52" width="148" height="164" rx="12"/>
+          <rect x="118" y="64" width="124" height="140" rx="8" stroke-width="1" opacity=".5"/>
+          <path d="M94 64v140M266 64v140" stroke-width="1" opacity=".45" stroke-dasharray="5 7"/>
+          <path d="M82 74v120M278 74v120" stroke-width="1" opacity=".3" stroke-dasharray="4 9"/>
+          <path d="M132 96l52 52M132 128l30 30" stroke-width="1" opacity=".35"/>
+          <path d="M296 78h48" stroke-width="3.2"/>
+          <path d="M298 78v-12M342 78v-12" stroke-width="1.4"/>
+          <path d="M300 82v34M320 82v40M340 82v30" stroke-width="1" opacity=".5"/>
+          <circle cx="300" cy="160" r="7"/><circle cx="326" cy="160" r="7"/>
+          <path d="M300 167v16M326 167v20" stroke-width="1.2" opacity=".6"/>
+          <path d="M106 240h148M106 236v8M254 236v8" stroke-width=".9" opacity=".45"/>
+        </svg>
+      </div>
+      <div class="prod-body">
+        <p class="prod-meta">Ayna · Aksesuar</p>
+        <h3 class="prod-title">Ayna &amp; Aksesuar</h3>
+        <p class="prod-desc">Işıklı ve kumlamalı aynalar, dolaplı ayna modülleri; havluluk, sabunluk, tutamak ve duş rafı takımları.</p>
+        <a class="prod-ask" target="_blank" rel="noopener"
+           href="https://wa.me/905075373643?text=Merhaba%2C%20ayna%20ve%20aksesuar%20i%C3%A7in%20fiyat%20almak%20istiyorum.">Fiyat sor <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ NEDEN BİZ ============ -->
+<section class="section why" id="neden">
+  <div class="section-head reveal">
+    <p class="kick">Neden Duştaş</p>
+    <h2>Ölçüyü de, üretimi de,<br>montajı da <em>aynı ekip yapar.</em></h2>
+    <p class="section-lead">Arada taşeron olmadığı için ölçü tutmadığında ya da bir conta değişeceğinde tek numara arıyorsunuz.</p>
+  </div>
+
+  <div class="why-grid reveal">
+    <article class="why-card">
+      <div class="why-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h18v10H3z"/><path d="M7 7v4M11 7v3M15 7v4M19 7v3"/></svg></div>
+      <h3>Özel Ölçü Üretim</h3>
+      <p>Duvarınız şakülünde değilse hazır duşakabin oturmaz. Ölçü yerinde alınır, cam ve profil o ölçüye göre üretilir.</p>
+    </article>
+
+    <article class="why-card">
+      <div class="why-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m14.7 6.3-1.4 1.4 3 3 1.4-1.4a2 2 0 0 0 0-2.8l-.2-.2a2 2 0 0 0-2.8 0z"/><path d="M13.3 7.7 4 17v3h3l9.3-9.3"/></svg></div>
+      <h3>Kendi Montaj Ekibimiz <span class="tbc">DOĞRULA</span></h3>
+      <p>Montajı satıştan ayrı düşünmüyoruz. Ölçüyü alan ekip takan ekiple aynı olduğu için sorumluluk dağılmıyor.</p>
+    </article>
+
+    <article class="why-card">
+      <div class="why-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V9l6-4 6 4v12"/><path d="M15 21V13l6 4v4"/><path d="M7 13h2M7 17h2"/></svg></div>
+      <h3>İki Showroom</h3>
+      <p>Meydan ve Adnan Menderes'te iki ayrı showroom. Camı, profili ve dolabı kataloğdan değil elinizle görerek seçiyorsunuz.</p>
+    </article>
+
+    <article class="why-card">
+      <div class="why-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M21 3v6h-6"/><path d="M12 8v4l3 2"/></svg></div>
+      <h3>Servis &amp; Yedek Parça</h3>
+      <p>Tekerlek, conta, menteşe ve mıknatıs fitil için sonradan da aynı yere dönüyorsunuz. Montaj bitince ilişki bitmiyor.</p>
+    </article>
+  </div>
+
+  <!-- İSTATİSTİKLER — HEPSİ YER TUTUCU. Gerçek sayıyı yazarken
+       <span class="num ph">[YIL]</span> yerine
+       <span class="num" data-count="18" data-suffix="+">0</span> koy → sayaç animasyonu çalışır. -->
+  <div class="stats reveal">
+    <div class="stat"><span class="num ph">[YIL]</span><span class="lbl">Yıllık<br>Tecrübe</span></div>
+    <div class="stat"><span class="num ph">[PROJE]</span><span class="lbl">Tamamlanan<br>Banyo</span></div>
+    <div class="stat"><span class="num ph">[SÜRE]</span><span class="lbl">Ölçüden<br>Montaja</span></div>
+    <div class="stat"><span class="num ph">[GARANTİ]</span><span class="lbl">Ürün<br>Garantisi</span></div>
+  </div>
+  <p class="stats-note reveal">Bu dört sayı bilerek boş bırakıldı — gerçek değerleri siz verdiğinizde doldurulacak.</p>
+</section>
+
+<!-- ============ SÜREÇ ADIMLARI ============ -->
+<section class="section process">
+  <div class="section-head reveal">
+    <p class="kick">Nasıl İlerliyor</p>
+    <h2>Dört adım, <em>sürpriz yok.</em></h2>
+    <p class="section-lead">Fiyatı ölçüden sonra veriyoruz; çünkü duşakabinin fiyatı ölçüsüne, camının kalınlığına ve profiline göre değişiyor.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step reveal"><span class="n">01</span><h3>Ücretsiz Keşif &amp; Ölçü</h3>
+      <p>Randevu alırsınız, banyonuza geliriz. Ölçüyü alır, uygulanabilir modelleri yerinde konuşuruz.</p></div>
+    <div class="step reveal"><span class="n">02</span><h3>Model, Cam ve Profil</h3>
+      <p>Showroom'da model, cam tipi (şeffaf, füme, buzlu), profil rengi ve açılış yönü seçilir. Fiyat burada netleşir.</p></div>
+    <div class="step reveal"><span class="n">03</span><h3>Özel Üretim</h3>
+      <p>Seçilen ürün sizin ölçünüzde üretilir. Üretim süresi baştan söylenir, teslim tarihi değişmez.</p></div>
+    <div class="step reveal"><span class="n">04</span><h3>Montaj &amp; Teslim</h3>
+      <p>Ekip gelir, kurar, silikonu çeker ve test eder. Kullanım ve temizlik önerileriyle birlikte teslim edilir.</p></div>
+  </div>
+</section>
+
+<!-- ============ SHOWROOM ============ -->
+<section class="section showroom" id="showroom">
+  <div class="section-head reveal">
+    <p class="kick">Showroom</p>
+    <h2>Kütahya'da <em>iki adres.</em></h2>
+    <p class="section-lead">Camı ve profili ekrandan seçmek zor. Uğrayın, elinizle deneyin — ölçü randevusunu da orada verelim.</p>
+  </div>
+
+  <div class="shop-grid reveal">
+    <article class="shop">
+      <p class="shop-tag">Şube 01</p>
+      <h3>Meydan</h3>
+      <div class="shop-rows">
+        <div class="shop-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span><span class="k">Adres</span>Meydan Mah. Mithat Paşa Cad. No:55<br>Merkez / Kütahya</span>
+        </div>
+        <div class="shop-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+          <span><span class="k">Telefon</span><a href="tel:+905075373643">0507 537 36 43</a></span>
+        </div>
+        <div class="shop-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span><span class="k">Çalışma Saatleri</span><span class="tbc">DOĞRULA</span> — firmadan alınacak</span>
+        </div>
+      </div>
+      <div class="shop-cta">
+        <a class="btn btn-primary" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/dir/?api=1&amp;destination=Meydan%20Mah.%20Mithat%20Pa%C5%9Fa%20Cad.%20No%3A55%2C%20K%C3%BCtahya">Yol Tarifi Al</a>
+        <a class="btn btn-ghost" target="_blank" rel="noopener"
+           href="https://wa.me/905075373643?text=Merhaba%2C%20Meydan%20showroom%20i%C3%A7in%20randevu%20almak%20istiyorum.">WhatsApp</a>
+      </div>
+    </article>
+
+    <article class="shop">
+      <p class="shop-tag">Şube 02</p>
+      <h3>Adnan Menderes</h3>
+      <div class="shop-rows">
+        <div class="shop-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span><span class="k">Adres</span>Adnan Menderes Bulvarı No:22<br>Merkez / Kütahya</span>
+        </div>
+        <div class="shop-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+          <span><span class="k">Telefon</span><a href="tel:+905347437323">0534 743 73 23</a></span>
+        </div>
+        <div class="shop-row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span><span class="k">Çalışma Saatleri</span><span class="tbc">DOĞRULA</span> — firmadan alınacak</span>
+        </div>
+      </div>
+      <div class="shop-cta">
+        <a class="btn btn-primary" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/dir/?api=1&amp;destination=Adnan%20Menderes%20Bulvar%C4%B1%20No%3A22%2C%20K%C3%BCtahya">Yol Tarifi Al</a>
+        <a class="btn btn-ghost" target="_blank" rel="noopener"
+           href="https://wa.me/905347437323?text=Merhaba%2C%20Adnan%20Menderes%20showroom%20i%C3%A7in%20randevu%20almak%20istiyorum.">WhatsApp</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ İLETİŞİM ============ -->
+<section class="contact" id="iletisim">
+  <div class="section-head reveal">
+    <p class="kick">İletişim</p>
+    <h2>Ölçü aldırmak mı,<br><em>fiyat sormak mı?</em></h2>
+    <p class="contact-lead">İkisi de bir mesaj uzağınızda. Banyonuzun fotoğrafını WhatsApp'tan atarsanız, hangi modelin uyacağını konuşarak başlayabiliriz.</p>
+  </div>
+
+  <div class="contact-tiles reveal">
+    <div class="tile">
+      <div class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div>
+      <p class="tile-lbl">Telefon</p>
+      <p class="tile-val"><a href="tel:+905075373643">0507 537 36 43</a><br><a href="tel:+905347437323">0534 743 73 23</a></p>
+      <p class="tile-sub">Meydan · Adnan Menderes</p>
+    </div>
+    <div class="tile">
+      <div class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <p class="tile-lbl">Showroom</p>
+      <p class="tile-val">Kütahya, Merkez</p>
+      <p class="tile-sub">Mithat Paşa Cad. No:55<br>Adnan Menderes Blv. No:22</p>
+    </div>
+    <div class="tile">
+      <div class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></div>
+      <p class="tile-lbl">E-posta</p>
+      <p class="tile-val"><span class="tbc">E-POSTA</span></p>
+      <p class="tile-sub">Adresi verdiğinizde eklenecek</p>
+    </div>
+  </div>
+
+  <div class="contact-cta reveal">
+    <a class="btn btn-wa" target="_blank" rel="noopener"
+       href="https://wa.me/905075373643?text=Merhaba%2C%20du%C5%9Fakabin%20i%C3%A7in%20fiyat%20almak%20istiyorum.">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.47c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+      WhatsApp'tan Yazın
+    </a>
+    <a href="tel:+905075373643" class="btn btn-ghost">Hemen Arayın</a>
+  </div>
+</section>
+
+<!-- ===== DEMO NOTU — teslimde bu bölümü sil ===== -->
+<section class="demo-note">
+  <div class="demo-note-inner">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+    <div>
+      <b>Demo · Tasarım Önerisi</b>
+      <p>Bu sayfa Duştaş için hazırlanmış <strong>bağımsız bir tasarım önerisidir</strong>, firmanın resmî sitesi değildir.
+      Sayfadaki adres ve telefon bilgileri herkese açık kaynaklardan derlenmiştir; doğrulanamayan bilgiler
+      <span class="tbc">DOĞRULA</span> etiketiyle bilerek boş bırakılmıştır. Müşteri yorumu, puan, ödül veya
+      marka/bayilik iddiası kullanılmamıştır. Arama motorlarına kapalıdır (<code>noindex</code>).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="foot-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mono" aria-hidden="true">D</span>
+      <span class="brand-text">
+        <span class="brand-name">Duştaş</span>
+        <span class="brand-sub">Kütahya · Duşakabin &amp; Banyo</span>
+      </span>
+    </a>
+    <div class="foot-links">
+      <a href="#surec">Süreç</a>
+      <a href="#urunler">Ürünler</a>
+      <a href="#neden">Neden Biz</a>
+      <a href="#showroom">Showroom</a>
+      <a href="#iletisim">İletişim</a>
+      <!-- DEMO sekmesi — teslimde sil -->
+      <a href="senaryolar.html" class="nav-demo">Senaryolar</a>
+    </div>
+  </div>
+  <div class="foot-copy">
+    <span>© <span id="yil">2026</span> Duştaş Duşakabin &amp; Banyo Dekorasyon.</span>
+    <!-- DEMO notu — teslimde sil -->
+    <span>Bağımsız tasarım önerisi · resmî site değildir</span>
+    <span>Kütahya · Türkiye</span>
+  </div>
+</footer>
+
+<!-- ============ MOBİL SABİT CTA ============ -->
+<div class="mbar" aria-label="Hızlı iletişim">
+  <a class="m-wa" target="_blank" rel="noopener"
+     href="https://wa.me/905075373643?text=Merhaba%2C%20du%C5%9Fakabin%20i%C3%A7in%20fiyat%20almak%20istiyorum.">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.47c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+    WhatsApp
+  </a>
+  <a class="m-tel" href="tel:+905075373643">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+    Ara
+  </a>
+</div>
+
+<!-- ===== DEMO SENARYO ANAHTARI — teslimde bu bloğu sil ===== -->
+<div class="demo-bar" id="demoBar">
+  <span class="demo-bar-t">Senaryo</span>
+  <div class="demo-seg" data-group="h" role="group" aria-label="Hero videosu">
+    <button type="button" data-v="1">Banyo</button>
+    <button type="button" data-v="2">Su</button>
+    <button type="button" data-v="3">Showroom</button>
+  </div>
+  <div class="demo-seg" data-group="s" role="group" aria-label="Scroll videosu">
+    <button type="button" data-v="a">Giriş</button>
+    <button type="button" data-v="b">Detay</button>
+  </div>
+  <a class="demo-all" href="senaryolar.html">6 senaryo ↗</a>
+</div>
+
+<script>
+(function(){
+'use strict';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* =========================================================
+   SENARYO SEÇİMİ  —  ?h=1|2|3  (hero videosu)  ?s=a|b  (scroll videosu)
+   Teslimde: HERO/SCRL sabitlerinden birini seçip bu bloğu sadeleştir.
+   ========================================================= */
+const qs = new URLSearchParams(location.search);
+const HERO = ['1','2','3'].includes(qs.get('h')) ? qs.get('h') : '1';
+const SCRL = ['a','b'].includes(qs.get('s')) ? qs.get('s') : 'a';
+
+// scroll videosuna göre sahne metinleri — anlatı görüntüyle örtüşsün
+const COPY = {
+  a: [ // duşakabine giriş: kapıdan içeri yürüyüş
+    ['01 — ÖLÇÜ', 'Önce banyonuza<br><em>geliriz.</em>',
+     'Hazır ölçü zorlamıyoruz. Duvarın şakülünü, zeminin eğimini ve süpürgeliği yerinde ölçüyoruz — cam sonradan kesilmiyor.'],
+    ['02 — ÜRETİM', 'Cam ve profil,<br><em>sizin ölçünüzde.</em>',
+     'Model, cam tipi, profil rengi ve açılış yönü seçilir; duşakabin bu ölçülere göre üretilir. Ne fazla silikon ne de boşluk kalır.'],
+    ['03 — MONTAJ', 'Aynı gün takılır,<br><em>aynı gün kullanılır.</em>',
+     'Montaj ekibi gelir, kurar, siler ve test eder. Sonrasında da tekerlek, conta ve menteşe için servis aynı numaradan devam eder.']
+  ],
+  b: [ // detaydan banyoya: menteşeden geniş plana
+    ['01 — DETAY', 'İşin kalitesi<br><em>menteşede belli olur.</em>',
+     'Tekerlek, conta, mıknatıs fitil… Duşakabinin ömrünü camı değil, üzerindeki donanım belirler. Onu da göstererek seçtiriyoruz.'],
+    ['02 — CAM &amp; PROFİL', 'Şeffaf, füme, buzlu<br><em>— hepsi elinizin altında.</em>',
+     'Cam kalınlığı, desen ve profil rengi showroom\'da yan yana duruyor. Ekrandan değil, ışığında görerek karar veriyorsunuz.'],
+    ['03 — BANYONUZ', 'Sonunda geriye<br><em>banyonuz kalır.</em>',
+     'Detayı doğru seçilmiş bir duşakabin, banyoyu büyütür ve temizliği kolaylaştırır. Biz de zaten oraya çalışıyoruz.']
+  ]
+};
+
+/* ---------- NAV ---------- */
+const nav = document.getElementById('nav');
+const navToggle = document.getElementById('navToggle');
+const navMenu = document.getElementById('navMenu');
+const onScrollNav = () => nav.classList.toggle('scrolled', scrollY > 40);
+addEventListener('scroll', onScrollNav, {passive:true}); onScrollNav();
+
+navToggle.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(open));
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+navMenu.addEventListener('click', e => {
+  if (e.target.closest('a')) {
+    nav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+});
+
+/* ---------- HERO VIDEO: senaryoya göre kaynak, yoksa fallback ---------- */
+const heroVideo = document.getElementById('heroVideo');
+if (heroVideo){
+  if (reduced) heroVideo.remove();
+  else {
+    [['media/hero' + HERO + '.webm','video/webm'],
+     ['media/hero' + HERO + '.mp4','video/mp4']].forEach(([src,type]) => {
+      const s = document.createElement('source'); s.src = src; s.type = type;
+      heroVideo.appendChild(s);
+    });
+    // hiçbir kaynak açılamazsa elementi kaldır → .hero-fallback görünür
+    heroVideo.addEventListener('error', () => heroVideo.remove(), true);
+    heroVideo.load();
+    heroVideo.play().catch(()=>{});
+    document.addEventListener('visibilitychange', () => {
+      if (!heroVideo.isConnected) return;
+      document.hidden ? heroVideo.pause() : heroVideo.play().catch(()=>{});
+    });
+  }
+}
+
+/* ---------- SAHNE METİNLERİ: scroll videosuna göre ---------- */
+COPY[SCRL].forEach((row, i) => {
+  const el = document.getElementById('st' + (i+1));
+  if (!el) return;
+  el.querySelector('.stage-num').innerHTML = row[0];
+  el.querySelector('h2').innerHTML = row[1];
+  el.querySelector('p').innerHTML = row[2];
+});
+
+/* =========================================================
+   SCROLL-SCRUB  —  reçete: video ASLA scrub edilmez,
+   kareler preload edilip canvas'a cover-fit çizilir.
+   ========================================================= */
+(function scrub(){
+  const scene  = document.querySelector('.scene');
+  const canvas = document.getElementById('scrubCanvas');
+  if (!scene || !canvas) return;
+  const ctx = canvas.getContext('2d', {alpha:false});
+
+  const FRAME_COUNT = 120;                     // ffmpeg fps ile BİREBİR aynı olmalı
+  const FRAME_PATH  = i => 'frames/' + SCRL + '/' + String(i).padStart(4,'0') + '.jpg';
+  const isMobile    = innerWidth < 768;
+  const STEP        = isMobile ? 2 : 1;        // mobilde kareyi seyrelt → yarı bant genişliği
+
+  const imgs = new Array(FRAME_COUNT + 1);
+  let loaded = 0, failed = 0, framesReady = false;
+
+  /* --- resize --- */
+  let W = 0, H = 0;
+  function resize(){
+    const dpr = Math.min(devicePixelRatio || 1, 2);   // 3x çizmek bedava FPS yakar
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width  = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function reflow(){ resize(); lastP = -1; render(); }
+
+  /* --- preload --- */
+  for (let i = 1; i <= FRAME_COUNT; i += STEP){
+    const im = new Image();
+    im.decoding = 'async';
+    im.onload  = () => { if (++loaded >= Math.floor(FRAME_COUNT/STEP * 0.6)) framesReady = true; };
+    im.onerror = () => { failed++; };
+    im.src = FRAME_PATH(i);
+    imgs[i] = im;
+  }
+
+  /* --- progress --- */
+  function getProgress(){
+    const total = scene.offsetHeight - innerHeight;
+    if (total <= 0) return 0;
+    const p = (scrollY - scene.offsetTop) / total;
+    return p < 0 ? 0 : p > 1 ? 1 : p;
+  }
+
+  /* --- kare çizimi (cover-fit) --- */
+  function drawFrame(p){
+    let idx = Math.floor(p * (FRAME_COUNT - 1)) + 1;
+    idx = Math.max(1, Math.min(FRAME_COUNT, Math.round((idx-1)/STEP)*STEP + 1));
+    const im = imgs[idx];
+    if (!im || !im.complete || !im.naturalWidth) return false;
+    const ir = im.naturalWidth / im.naturalHeight, cr = W / H;
+    let dw, dh;
+    if (ir > cr){ dh = H; dw = H * ir; } else { dw = W; dh = W / ir; }
+    ctx.drawImage(im, (W - dw)/2, (H - dh)/2, dw, dh);
+    return true;
+  }
+
+  /* --- PLACEHOLDER: kareler yokken prosedürel "duşakabin tüneli" ---
+     AYDINLIK versiyon: açık zemin, su mavisi çizgiler, krom dikmeler.
+     Mekaniği önce kur, videoyu sonra swap et. Kareler gelince hiç görünmez. */
+  function drawPlaceholder(p){
+    const g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, '#ffffff'); g.addColorStop(.52, '#eaf2f7'); g.addColorStop(1, '#dbe6ed');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+    const cx = W * 0.54, cy = H * 0.5;
+    const depth = 16;                              // içeri doğru kaç çerçeve
+    const travel = p * 1.0;                        // scroll → içeri yürüme
+
+    // uzaktaki pencere ışığı
+    const glow = ctx.createRadialGradient(cx, cy - H*0.04, 0, cx, cy - H*0.04, W*0.4);
+    glow.addColorStop(0, 'rgba(255,255,255,.95)');
+    glow.addColorStop(.45, 'rgba(227,241,246,.55)');
+    glow.addColorStop(1, 'rgba(227,241,246,0)');
+    ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
+
+    // zemin — fayans derz çizgileri
+    ctx.strokeStyle = 'rgba(154,167,177,.35)'; ctx.lineWidth = 1;
+    for (let i = 1; i <= 7; i++){
+      const t = ((i / 7) + travel * 0.5) % 1;
+      const y = cy + Math.pow(t, 2.1) * H * 0.62;
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+
+    ctx.lineCap = 'round';
+    for (let i = 0; i < depth; i++){
+      const t = ((i / depth) + travel) % 1;        // 0 = uzak, 1 = kameranın üstünde
+      const s = Math.pow(t, 2.35);                 // perspektif hızlanması
+      const w = W * (0.10 + s * 2.3);
+      const h = H * (0.16 + s * 2.6);
+      const a = Math.min(1, t * 2.4) * (1 - Math.pow(t, 3.2));
+      if (a <= 0.01) continue;
+
+      // cam paneli — çok açık su mavisi dolgu
+      ctx.fillStyle = 'rgba(46,147,184,' + (a * 0.05).toFixed(3) + ')';
+      ctx.fillRect(cx - w/2, cy - h/2, w, h);
+
+      // profil çerçevesi
+      ctx.strokeStyle = 'rgba(28,109,140,' + (a * 0.55).toFixed(3) + ')';
+      ctx.lineWidth = 1 + s * 2.4;
+      ctx.strokeRect(cx - w/2, cy - h/2, w, h);
+
+      // krom dikmeler
+      ctx.strokeStyle = 'rgba(154,167,177,' + (a * 0.55).toFixed(3) + ')';
+      ctx.lineWidth = 1 + s * 1.6;
+      ctx.beginPath();
+      ctx.moveTo(cx - w/2, cy - h/2); ctx.lineTo(cx - w/2, cy + h/2);
+      ctx.moveTo(cx + w/2, cy - h/2); ctx.lineTo(cx + w/2, cy + h/2);
+      ctx.stroke();
+
+      // su damlası parıltısı
+      if (a > 0.25){
+        ctx.fillStyle = 'rgba(46,147,184,' + (a * 0.3).toFixed(3) + ')';
+        const r = 1 + s * 3;
+        ctx.beginPath(); ctx.arc(cx - w/2 + w*0.22, cy - h/2 + h*0.34, r, 0, 6.2832); ctx.fill();
+        ctx.beginPath(); ctx.arc(cx + w/2 - w*0.18, cy + h/2 - h*0.28, r*0.8, 0, 6.2832); ctx.fill();
+      }
+    }
+
+    // yan duvar kaçış çizgileri
+    ctx.strokeStyle = 'rgba(28,109,140,.14)'; ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, H*0.04); ctx.lineTo(cx, cy);
+    ctx.moveTo(W, H*0.04); ctx.lineTo(cx, cy);
+    ctx.moveTo(0, H*0.99); ctx.lineTo(cx, cy);
+    ctx.moveTo(W, H*0.99); ctx.lineTo(cx, cy);
+    ctx.stroke();
+
+    // AYDINLIK vinyet — köşelere doğru beyazlat (koyu değil)
+    const v = ctx.createRadialGradient(cx, cy, Math.min(W,H)*0.22, cx, cy, Math.max(W,H)*0.78);
+    v.addColorStop(0, 'rgba(255,255,255,0)'); v.addColorStop(1, 'rgba(255,255,255,.72)');
+    ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
+  }
+
+  function draw(p){
+    if (!W || !H) return;
+    if (!framesReady || !drawFrame(p)) drawPlaceholder(p);
+  }
+
+  /* --- metin sahneleri: band = gir&kal, bell = gir-çık --- */
+  const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+  const band = (p,a,b) => clamp01((p - a) / (b - a));
+  const bell = (p,a,b) => { const m = (a + b) / 2;
+    return p < m ? band(p, a, m) : 1 - band(p, m, b); };
+
+  const st1 = document.getElementById('st1');
+  const st2 = document.getElementById('st2');
+  const st3 = document.getElementById('st3');
+  const card = document.getElementById('scrubCard');
+  const hint = document.getElementById('scrubHint');
+  const bar  = document.getElementById('scrubBar');
+
+  function setStage(el, o){
+    el.style.opacity = o.toFixed(3);
+    el.style.transform = 'translateY(' + (-50 + (1 - o) * 5).toFixed(2) + '%)';
+  }
+
+  let lastP = -1, ticking = false, settled = false;
+  function render(){
+    ticking = false;
+    const p = getProgress();
+    if (Math.abs(p - lastP) > 0.0004 || lastP < 0){
+      lastP = p;
+      draw(p);
+      setStage(st1, 1 - band(p, 0.14, 0.26));
+      setStage(st2, bell(p, 0.30, 0.56));
+      setStage(st3, bell(p, 0.58, 0.78));
+      card.style.opacity   = band(p, 0.80, 0.92).toFixed(3);
+      card.style.transform = 'translateY(' + ((1 - band(p,0.80,0.92)) * 22).toFixed(1) + 'px)';
+      hint.style.opacity   = (1 - band(p, 0.02, 0.12)).toFixed(3);
+      bar.style.width      = (p * 100).toFixed(2) + '%';
+    }
+    if (!settled && !framesReady) requestAnimationFrame(render);  // preload biterken canlı kal
+  }
+  function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(render); } }
+
+  resize();
+  setStage(st1, 1); setStage(st2, 0); setStage(st3, 0);
+  render();
+  addEventListener('scroll', onScroll, {passive:true});
+  addEventListener('resize', reflow, {passive:true});
+  addEventListener('orientationchange', reflow, {passive:true});
+  // canvas 0x0 doğabilir (geç layout, gizli sekme, mobil adres çubuğu) → gözlemle
+  if (self.ResizeObserver) new ResizeObserver(() => {
+    if (canvas.clientWidth !== W || canvas.clientHeight !== H) reflow();
+  }).observe(canvas);
+  // arka plan sekmesinde yüklendiyse rAF/ResizeObserver askıdadır; öne gelince toparla
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) reflow(); });
+  // preload ilerledikçe yeniden çiz; kareler hazır ya da yoksa döngüyü kapat
+  let polls = 0;
+  const poll = setInterval(() => {
+    lastP = -1; render();
+    if (framesReady || failed > 3 || ++polls > 25){   // ~10 sn sonra pes et
+      settled = true; clearInterval(poll);
+    }
+  }, 400);
+})();
+
+/* ---------- REVEAL ---------- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal, .step').forEach(el => io.observe(el));
+
+/* ---------- SAYAÇ ----------
+   Şu an istatistiklerin hepsi yer tutucu (.num.ph) olduğu için hiçbir eleman
+   eşleşmiyor; gerçek sayı girildiğinde data-count eklenince otomatik çalışır. */
+const counters = document.querySelectorAll('.num[data-count]');
+const cio = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, target = +el.dataset.count, suffix = el.dataset.suffix || '';
+    if (reduced){ el.textContent = target + suffix; cio.unobserve(el); return; }
+    const dur = 1400, t0 = performance.now();
+    (function step(now){
+      const k = Math.min(1, (now - t0) / dur);
+      const eased = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+    cio.unobserve(el);
+  });
+}, {threshold:.5});
+counters.forEach(el => cio.observe(el));
+
+/* ---------- YIL ---------- */
+document.getElementById('yil').textContent = new Date().getFullYear();
+
+/* =========================================================
+   DEMO SENARYO ANAHTARI — teslimde bu bloğu sil
+   ========================================================= */
+(function demoBar(){
+  const bar = document.getElementById('demoBar');
+  if (!bar) return;
+  const cur = {h: HERO, s: SCRL};
+
+  bar.querySelectorAll('.demo-seg').forEach(seg => {
+    const g = seg.dataset.group;
+    seg.querySelectorAll('button').forEach(b => {
+      b.setAttribute('aria-pressed', String(b.dataset.v === cur[g]));
+      b.addEventListener('click', () => {
+        if (b.dataset.v === cur[g]) return;
+        const next = Object.assign({}, cur, {[g]: b.dataset.v});
+        // aynı scroll noktasında A/B karşılaştırabilmek için konumu taşı
+        try { sessionStorage.setItem('demoScroll', String(scrollY)); } catch(e){}
+        location.search = '?h=' + next.h + '&s=' + next.s;
+      });
+    });
+  });
+
+  // reload sonrası scroll konumunu geri koy
+  try {
+    const y = sessionStorage.getItem('demoScroll');
+    if (y !== null){
+      sessionStorage.removeItem('demoScroll');
+      const prev = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      scrollTo(0, +y);
+      requestAnimationFrame(() => {
+        scrollTo(0, +y);
+        document.documentElement.style.scrollBehavior = prev;
+      });
+    }
+  } catch(e){}
+
+  // okumayı engellemesin: scroll dururken soluklaş
+  let t;
+  const wake = () => { bar.classList.remove('dim'); clearTimeout(t);
+    t = setTimeout(() => bar.classList.add('dim'), 2200); };
+  addEventListener('scroll', wake, {passive:true});
+  bar.addEventListener('pointerenter', () => { clearTimeout(t); bar.classList.remove('dim'); });
+  wake();
+})();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6 Senaryo — Duştaş Demo</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f7f9fb">
+<style>
+:root{
+  --paper:#f7f9fb; --surface:#ffffff; --surface-2:#eef3f7;
+  --ink:#16202b; --ink-dim:#5a6874;
+  --line:rgba(22,32,43,.10); --line-2:rgba(22,32,43,.18);
+  --aqua:#2e93b8; --aqua-deep:#1c6d8c; --aqua-dark:#175f79; --aqua-soft:#e3f1f6;
+  --font-display:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-ui:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-ui);
+  -webkit-font-smoothing:antialiased;line-height:1.5;
+  background-image:radial-gradient(ellipse 62% 40% at 72% -6%,rgba(46,147,184,.12),transparent 64%)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--aqua-deep);outline-offset:3px}
+video{display:block;width:100%;height:100%;object-fit:cover;background:var(--surface-2)}
+
+.wrap{max-width:1340px;margin:0 auto;padding:32px min(5vw,44px) 90px}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding-bottom:24px;margin-bottom:42px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;line-height:1}
+.brand-mono{width:34px;height:34px;display:grid;place-items:center;flex:none;
+  border-radius:8px;background:var(--aqua-deep);color:#fff;
+  font-family:var(--font-display);font-size:18px;font-weight:800;
+  box-shadow:0 4px 14px rgba(28,109,140,.28)}
+.brand-text{display:flex;flex-direction:column;gap:5px}
+.brand-name{font-family:var(--font-display);font-size:16px;font-weight:800;
+  letter-spacing:.2em;text-transform:uppercase}
+.brand-sub{font-size:8px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--ink-dim);font-weight:600}
+.back{padding:11px 18px;border:1px solid var(--line-2);border-radius:6px;
+  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-dim);white-space:nowrap;background:var(--surface);
+  transition:color .25s,border-color .25s,background .25s}
+.back:hover{color:var(--aqua-deep);border-color:var(--aqua-deep)}
+
+header .kick{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--aqua-deep);
+  margin-bottom:18px;font-weight:800;display:inline-flex;align-items:center;gap:14px}
+header .kick::before{content:"";width:30px;height:2px;background:var(--aqua-deep);opacity:.8}
+header h1{font-family:var(--font-display);font-weight:800;
+  font-size:clamp(34px,4.6vw,56px);line-height:1.06;letter-spacing:-.02em;max-width:820px}
+header h1 em{font-style:normal;color:var(--aqua-deep)}
+header p{margin-top:20px;max-width:640px;font-size:15.5px;line-height:1.7;
+  color:var(--ink-dim);font-weight:500}
+.legend{margin-top:30px;display:flex;gap:10px;flex-wrap:wrap}
+.chip{padding:8px 15px;border:1px solid var(--line);border-radius:100px;font-size:11.5px;
+  color:var(--ink-dim);background:var(--surface);font-weight:500}
+.chip b{color:var(--aqua-deep);font-weight:800}
+
+.notice{margin-top:26px;background:var(--aqua-soft);border:1px dashed rgba(28,109,140,.45);
+  border-radius:10px;padding:16px 20px;font-size:13.5px;line-height:1.6;
+  color:var(--ink);font-weight:500;max-width:900px}
+.notice b{color:var(--aqua-deep)}
+
+.grid{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px 22px}
+
+.card{border:1px solid var(--line);border-radius:12px;background:var(--surface);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color .4s, transform .4s, box-shadow .4s}
+.card:hover{border-color:rgba(28,109,140,.35);transform:translateY(-5px);
+  box-shadow:0 24px 54px rgba(22,32,43,.12)}
+.card.pick{border-color:rgba(28,109,140,.5);box-shadow:0 10px 30px rgba(28,109,140,.10)}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-2);
+  aspect-ratio:32/9;position:relative}
+.pane{position:relative;overflow:hidden;background:var(--surface-2)}
+.pane .tag{position:absolute;left:8px;top:8px;z-index:2;padding:4px 9px;border-radius:4px;
+  font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;
+  background:rgba(255,255,255,.92);color:var(--aqua-deep);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.pane::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,transparent 36%)}
+/* video henüz yokken paneli boş bırakma — sade bir yer tutucu göster */
+.pane .ph{position:absolute;inset:0;z-index:0;display:grid;place-items:center;
+  font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);
+  font-weight:700;text-align:center;padding:8px;
+  background:linear-gradient(150deg,#ffffff,var(--aqua-soft))}
+
+.body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1;gap:12px}
+.no{font-size:10px;letter-spacing:.24em;color:var(--aqua-deep);font-weight:800}
+.card h2{font-family:var(--font-display);font-weight:800;font-size:22px;line-height:1.16;
+  letter-spacing:-.015em}
+.card h2 em{font-style:normal;color:var(--aqua-deep)}
+.meta{display:flex;flex-direction:column;gap:8px;padding:14px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.meta div{display:flex;gap:10px;font-size:12.5px;line-height:1.5}
+.meta .k{flex:none;width:52px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--aqua-deep);font-weight:800;padding-top:3px}
+.meta .v{color:var(--ink-dim);font-weight:500}
+.note{font-size:13.5px;line-height:1.65;color:var(--ink-dim);font-weight:500;flex:1}
+.open{margin-top:4px;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:13px 20px;border-radius:6px;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;font-weight:700;
+  background:var(--aqua-deep);color:#fff;border:1px solid var(--aqua-deep);
+  transition:background .3s,transform .25s,box-shadow .3s}
+.open:hover{background:var(--aqua-dark);border-color:var(--aqua-dark);
+  transform:translateY(-2px);box-shadow:0 14px 30px rgba(28,109,140,.28)}
+.card:not(.pick) .open{background:var(--surface);color:var(--ink);border-color:var(--line-2)}
+.card:not(.pick) .open:hover{color:var(--aqua-deep);border-color:var(--aqua-deep);background:#fff}
+
+footer{margin-top:66px;padding-top:24px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  font-size:11.5px;color:var(--ink-dim);font-weight:500}
+footer a{color:var(--aqua-deep);font-weight:700}
+
+@media(max-width:1080px){ .grid{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:700px){
+  .wrap{padding:22px 18px 70px}
+  .topbar{margin-bottom:30px}
+  .brand-sub{display:none}
+  .grid{grid-template-columns:1fr;gap:20px}
+  .duo{aspect-ratio:2/1}
+}
+@media(prefers-reduced-motion:reduce){ .card{transition:none} .card:hover{transform:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-mono" aria-hidden="true">D</span>
+    <span class="brand-text">
+      <span class="brand-name">Duştaş</span>
+      <span class="brand-sub">Kütahya · Duşakabin &amp; Banyo</span>
+    </span>
+  </a>
+  <a class="back" href="index.html">← Siteye dön</a>
+</div>
+
+<header>
+  <p class="kick">Demo · Karşılaştırma</p>
+  <h1>Altı senaryo,<br><em>tek sayfada.</em></h1>
+  <p>3 hero videosu × 2 scroll videosu. Her kartta soldaki kutu sitenin açılışında arkada dönen videoyu, sağdaki kutu scroll'la kare kare ilerleyen videoyu gösteriyor. Kartın altındaki düğme o senaryoyu gerçek sitede açar.</p>
+
+  <div class="legend">
+    <span class="chip"><b>Banyo</b> — aydınlık modern banyo, yandan kayış</span>
+    <span class="chip"><b>Su</b> — yağmurlama başlığından düşen su, ağır çekim</span>
+    <span class="chip"><b>Showroom</b> — duşakabin sıraları arasında kayış</span>
+    <span class="chip"><b>Giriş</b> — kapıdan duşakabinin içine yürüyüş</span>
+    <span class="chip"><b>Detay</b> — menteşe detayından tüm banyoya açılış</span>
+  </div>
+
+  <p class="notice"><b>Not:</b> Bu sayfa Duştaş için hazırlanmış bağımsız bir tasarım önerisidir, firmanın resmî sitesi değildir.
+  Videolar henüz üretilmediyse önizleme kutuları boş görünür; site bu durumda placeholder ile çalışmaya devam eder.</p>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  <span>Videolar: Higgsfield · Kareler: 120 adet, 1440px · Hero: 16 sn dikişsiz boomerang loop</span>
+  <span><a href="index.html">Varsayılan siteyi aç →</a></span>
+</footer>
+
+</div>
+
+<script>
+(function(){
+'use strict';
+
+const HERO = {
+  '1': {ad:'Banyo',    uzun:'Aydınlık modern banyo · yandan kayış'},
+  '2': {ad:'Su',       uzun:'Yağmurlama başlığı · ağır çekim su'},
+  '3': {ad:'Showroom', uzun:'Duşakabin sıraları · mağaza içi'}
+};
+const SCRL = {
+  'a': {ad:'Giriş',  uzun:'Kapıdan duşakabinin içine yürüyüş'},
+  'b': {ad:'Detay',  uzun:'Menteşe detayından tüm banyoya'}
+};
+
+const SENARYO = [
+  {h:'1', s:'a', pick:true, rozet:'VARSAYILAN',
+   baslik:'Banyo + <em>Giriş</em>',
+   not:'En güvenli kombinasyon. Açılışta bitmiş bir banyo görünüyor, scroll da aynı mekânın içine yürüyor. "Bizde banyonun tamamı var" mesajını en net veren kurgu.'},
+  {h:'1', s:'b',
+   baslik:'Banyo + <em>Detay</em>',
+   not:'Geniş plandan menteşe detayına iniyor. İşçilik ve donanım kalitesini öne çıkarmak istiyorsan bu; fiyat değil kalite konuşan müşteriye hitap eder.'},
+  {h:'2', s:'a', pick:true, rozet:'ÖNERİLEN',
+   baslik:'Su + <em>Giriş</em>',
+   not:'Bu sektör için en güçlüsü. Su hem ürünün kendisi hem de duygusu; açılışta hemen "temizlik ve ferahlık" hissi kuruyor, sonra ürüne giriyor. İlk gönderim için bunu öneriyorum.'},
+  {h:'2', s:'b',
+   baslik:'Su + <em>Detay</em>',
+   not:'Baştan sona yakın plan: damlayla açılıp menteşeyle devam ediyor. Çok estetik ama mekân algısı zayıf — showroom\'u görmek isteyen müşteride etkisi düşer.'},
+  {h:'3', s:'a',
+   baslik:'Showroom + <em>Giriş</em>',
+   not:'"Gel gör, elinle seç" diyen kurgu. İki şubesi olan bir firmada mağazayı göstermek güçlü bir argüman; hero biraz kalabalık olduğu için metnin sol tarafı temiz kalmalı.'},
+  {h:'3', s:'b',
+   baslik:'Showroom + <em>Detay</em>',
+   not:'Mağazadan detaya. Ürün çeşitliliği + işçilik vurgusunu birlikte veriyor; en "mağaza" duran, en az "reklam filmi" duran senaryo.'}
+];
+
+const grid = document.getElementById('grid');
+const frag = document.createDocumentFragment();
+
+SENARYO.forEach((x, i) => {
+  const url = 'index.html?h=' + x.h + '&s=' + x.s;
+  const card = document.createElement('article');
+  card.className = 'card' + (x.pick ? ' pick' : '');
+  card.innerHTML =
+    '<div class="duo">' +
+      '<div class="pane"><span class="tag">Hero</span>' +
+        '<span class="ph">Hero ' + x.h + '<br>videosu bekleniyor</span>' +
+        '<video src="media/preview/h' + x.h + '.mp4" muted loop playsinline preload="metadata"></video></div>' +
+      '<div class="pane"><span class="tag">Scroll</span>' +
+        '<span class="ph">Scroll ' + x.s.toUpperCase() + '<br>videosu bekleniyor</span>' +
+        '<video src="media/preview/s' + x.s + '.mp4" muted loop playsinline preload="metadata"></video></div>' +
+    '</div>' +
+    '<div class="body">' +
+      '<span class="no">SENARYO ' + String(i+1).padStart(2,'0') + (x.rozet ? ' · ' + x.rozet : '') + '</span>' +
+      '<h2>' + x.baslik + '</h2>' +
+      '<div class="meta">' +
+        '<div><span class="k">Hero</span><span class="v">' + HERO[x.h].uzun + '</span></div>' +
+        '<div><span class="k">Scroll</span><span class="v">' + SCRL[x.s].uzun + '</span></div>' +
+      '</div>' +
+      '<p class="note">' + x.not + '</p>' +
+      '<a class="open" href="' + url + '">Bu senaryoyu aç <span aria-hidden="true">→</span></a>' +
+    '</div>';
+  frag.appendChild(card);
+});
+grid.appendChild(frag);
+
+/* Video yoksa elementi kaldır → arkadaki .ph yer tutucusu görünür */
+const vids = grid.querySelectorAll('video');
+vids.forEach(v => v.addEventListener('error', () => v.remove(), true));
+
+/* Sadece görünen kartların videosu oynasın — 12 video aynı anda dönmesin */
+if (matchMedia('(prefers-reduced-motion: reduce)').matches){
+  vids.forEach(v => { v.removeAttribute('loop'); });
+} else {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const v = e.target;
+      if (e.isIntersecting) v.play().catch(()=>{});
+      else v.pause();
+    });
+  }, {threshold:.25});
+  vids.forEach(v => io.observe(v));
+}
+})();
+</script>
+</body>
+</html>
