@@ -201,8 +201,25 @@ npm i @ffmpeg-installer/ffmpeg @ffprobe-installer/ffprobe
 node -e "console.log(require('@ffmpeg-installer/ffmpeg').path)"
 ```
 
-Ham çıktıları `_raw/` altına koy (gitignore'lu). Önce `ffprobe` ile kare sayısını
-doğrula — aşağıdaki `191` değeri 193 kareye göredir, farklıysa düzelt.
+Ham çıktıları `_raw/` altına koy (gitignore'lu). Aşağıdaki komutlar şu adları bekliyor:
+
+| Higgsfield çıktısı | `_raw/` kaydet adı | Sitede |
+|---|---|---|
+| HERO 1 — aydınlık banyo | `hero_raw_alt1.mp4` | `media/hero1.mp4/.webm` · `?h=1` |
+| HERO 2 — su | `hero_raw_alt2.mp4` | `media/hero2.mp4/.webm` · `?h=2` |
+| HERO 3 — showroom | `hero_raw_alt3.mp4` | `media/hero3.mp4/.webm` · `?h=3` |
+| SCROLL A — duşakabine giriş | `scroll_raw_alt1.mp4` | `frames/a/0001–0120.jpg` · `?s=a` |
+| SCROLL B — detaydan banyoya | `scroll_raw_alt2.mp4` | `frames/b/0001–0120.jpg` · `?s=b` |
+
+Önce `ffprobe` ile kare sayısını doğrula — aşağıdaki `191` değeri 193 kareye göredir,
+farklıysa düzelt (kural: `toplam_kare - 2`). Scroll videosu 8 sn değilse `fps` değerini
+`120 / süre` olacak şekilde ayarla (5 sn → `fps=24`); `FRAME_COUNT` her hâlükârda 120 kalır.
+
+```bash
+ffprobe -v error -select_streams v:0 -count_frames \
+  -show_entries stream=nb_read_frames,r_frame_rate,width,height,duration \
+  -of default=nw=1 _raw/scroll_raw_alt1.mp4
+```
 
 ### Hero → dikişsiz loop (boomerang)
 
