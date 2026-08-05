@@ -117,8 +117,21 @@ Brief'teki **önerilen** yöntem uygulandı: videonun üstüne beyaz scrim, meti
 | Yalnızca yatay scrim, metin bandındaki en zayıf nokta | .560 | **5.09:1** |
 
 Metnin ulaşmadığı sağ uçta scrim .28'e düşer (video orada net görünür).
-Hero videoları zaten high-key/aydınlık olduğu için gerçek değerler bunların üstünde
-çıkacak — tablo alt sınırı gösteriyor.
+
+**Videolar geldikten sonra gerçek ölçüm** — üç hero'nun 24'er karesi örneklendi,
+metin bölgesindeki (`x %3–62`, `y %45–90`) **her piksel** scrim'le kompozitlenip
+`--ink` kontrastı hesaplandı:
+
+| | Ortalama | En kötü tek piksel |
+|---|---|---|
+| hero1 — aydınlık banyo | 12.65:1 | **7.67:1** |
+| hero2 — su | 15.15:1 | **7.26:1** |
+| hero3 — showroom | 13.86:1 | **6.37:1** |
+
+Yani metin bandındaki en karanlık piksel bile AA eşiğinin (4.5:1) belirgin üstünde.
+Videoların sol üçte biri gerçekten sade geldiği için scrim'i daha da açmaya gerek yok;
+tersine, istersen sağ tarafta videoyu biraz daha ortaya çıkarmak için `.28`'i
+düşürebilirsin — metin oraya ulaşmıyor.
 
 ### Scroll-scrub sahnesi
 
