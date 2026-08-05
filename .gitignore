@@ -1,4 +1,7 @@
-_tools/
+# _tools/ npm ffmpeg binary'leri — repoya girmesin, ama build script'leri girsin
+_tools/*
+!_tools/build.sh
+!_tools/linearize.js
 node_modules/
 .claude/settings.local.json
 # ham Higgsfield çıktıları (130 MB) — repoya girmesin, yerelde dursun

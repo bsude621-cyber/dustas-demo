@@ -72,8 +72,8 @@ _raw/               ham Higgsfield çıktıları — DAĞITILMAZ (.gitignore + .
 _tools/             npm ffmpeg/ffprobe — DAĞITILMAZ
 ```
 
-Dağıtılan toplam ~21 MB. Ziyaretçi başına indirilen: 1 hero (0.7–1.4 MB webm)
-+ 120 kare (4–7 MB).
+Dağıtılan toplam **21.7 MB** (ölçüldü). Ziyaretçi başına indirilen: 1 hero
+(0.9–1.5 MB webm) + 120 kare (~6 MB; mobilde `STEP=2` ile ~3 MB).
 
 > **Dosya adlandırma tutarlılığı:** kare klasörleri `a`/`b` olduğu için önizleme
 > klipleri de `sa.mp4` / `sb.mp4` olmalı — `s1`/`s2` değil.
@@ -181,6 +181,11 @@ etiketlerini oradan doldur.
 | `band`/`bell` zamanlaması | st1→st2→st3→kart kesintisiz; 4 sahnenin hepsinin 0.35'in altında kaldığı ölü nokta yok |
 | Kare yolu ↔ ffmpeg | `FRAME_COUNT = 120`, `padStart(4,'0')` ↔ `%04d` — uyumlu |
 | 6 senaryo bağlantısı | `senaryolar.html` altı kartın altısında da doğru `?h=&s=` üretiyor |
+| **Hero boomerang dikişi** | üç hero da **384 kare / tam 16.000 sn**; dönüş noktasında ve döngü kapanışında birebir tekrar eden kare **yok** (döngü baştan sona kare kare tarandı) |
+| **Scroll hız profili** | duraklama yok, cut yok, tekrar eden kare yok; scroll b'de hız 5.49 / 5.52 / 5.51 |
+| **Medya bütünlüğü** | 254 dosyanın 254'ü sunucudan **200** dönüyor; 6 senaryonun altısı da tam |
+| **Watermark** | beş ham klipte de yok — `delogo` gerekmedi |
+| Dağıtılan boyut | **21.7 MB** (hero 11 MB + kareler 12 MB) |
 | `noindex` | index.html + senaryolar.html meta, ayrıca `vercel.json` `X-Robots-Tag` |
 | Kontrast | yukarıdaki tablo — tüm metin/zemin çiftleri AA (≥4.5:1) |
 
@@ -246,6 +251,8 @@ Sonuç: 384 kare = tam 16.000 sn, 1600×900. Aynısını `hero2` ve `hero3` içi
 
 ### Scroll → 120 kare
 
+Basit hâli:
+
 ```bash
 ffmpeg -y -i _raw/scroll_raw_alt1.mp4 -vf "fps=15,scale=1440:-2" -q:v 4 \
   -frames:v 120 "frames/a/%04d.jpg"
@@ -255,6 +262,34 @@ ffmpeg -y -i _raw/scroll_raw_alt1.mp4 -vf "fps=15,scale=1440:-2" -q:v 4 \
 `-frames:v 120` şart, yoksa 121. kare üretilip eşleşme kayar.
 Sıfır-pad 4 hane (`%04d` ↔ `padStart(4,'0')`).
 Video 5 sn geldiyse `fps=24` kullan (5×24=120), `FRAME_COUNT` değişmez.
+
+#### …ama bu projede yetmedi: hız düzleştirme
+
+Ölçünce iki klipte de sabit hız yoktu (`_tools/linearize.js` bunun için yazıldı):
+
+| | Sorun | Yapılan |
+|---|---|---|
+| **scroll a** | son ~0.4 sn'de kamera duruyor, 118→119 birebir tekrar eden kare | kuyruk atıldı (`-t 7.60`) |
+| **scroll b** | ilk ~0.8 sn makro kadraj sabit; 30→33 arasında hız ortalamanın **3 katına** çıkıyor | baş atıldı (`-ss 0.72 -t 7.32`) + hareket eşitlendi |
+
+Zamanı eşit bölmek (`fps=15`) yanlış sonuç veriyordu: kamera hızlandığında scroll
+sıçrıyor, yavaşladığında takılıyor. Bunun yerine **zaman değil hareket eşit bölündü** —
+kaynağın her karesi arası hareket ölçülüp kümülatif eğri çıkarıldı, 120 kare bu eğri
+üzerinde eşit aralıklarla seçildi. Böylece her scroll pikseli aynı miktarda görüntü
+hareketine denk geliyor.
+
+```bash
+bash _tools/build.sh          # hero ×3 + scroll ×2 + önizleme ×5, baştan sona
+```
+
+Sonuç (kare-arası hareketin baş / orta / son ortalaması):
+
+| | Önce | Sonra |
+|---|---|---|
+| scroll a | 7.91 / 6.65 / **3.72** · 5 kare duraklama | 7.56 / 7.02 / 6.46 · duraklama yok |
+| scroll b | **1.41** / 7.04 / 4.08 · 2 sıçrama (3×) | **5.49 / 5.52 / 5.51** · sıçrama yok |
+
+İkisinde de 120 karenin 120'si benzersiz, birebir tekrar eden kare yok.
 
 Watermark çıkarsa CSS ile kapatma, kaynakta sil:
 `-vf "delogo=x=1715:y=875:w=175:h=165,fps=15,scale=1440:-2"`
