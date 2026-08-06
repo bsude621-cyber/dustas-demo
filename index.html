@@ -120,6 +120,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .nav.open .nav-toggle span:nth-child(2){opacity:0}
 .nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
+/* ?clean=1 — ekran kaydı modu: demo arayüzünü tamamen gizler */
+html.clean .demo-bar, html.clean .nav-demo{display:none !important}
+
 /* ===== DEMO SENARYO ANAHTARI — teslimde bu bloğu ve #demoBar HTML'ini sil ===== */
 .demo-bar{position:fixed;right:14px;bottom:14px;z-index:130;display:flex;align-items:center;
   gap:10px;padding:9px 10px 9px 14px;border-radius:100px;
@@ -1370,7 +1373,13 @@ document.getElementById('yil').textContent = new Date().getFullYear();
 /* =========================================================
    DEMO SENARYO ANAHTARI — teslimde bu bloğu sil
    ========================================================= */
+/* ?clean=1 — ekran kaydı / tanıtım videosu modu.
+   Senaryo anahtarını ve "Senaryolar" sekmelerini gizler; site bitmiş
+   gibi görünür. Demo notu bilerek yerinde kalır. */
+if (qs.get('clean') === '1') document.documentElement.classList.add('clean');
+
 (function demoBar(){
+  if (document.documentElement.classList.contains('clean')) return;
   const bar = document.getElementById('demoBar');
   if (!bar) return;
   const cur = {h: HERO, s: SCRL};
