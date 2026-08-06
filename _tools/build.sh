@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Duştaş demo — ham Higgsfield çıktılarını siteye hazırlar.
+# Banyo/duşakabin demo — ham Higgsfield çıktılarını siteye hazırlar.
 # Kaynak: 1920x1080, 24 fps, 8.0417 sn, 193 kare (ffprobe ile doğrulandı)
 set -e
-cd /c/Users/celik/dustas
+cd "$(dirname "$0")/.."
 FF="_tools/node_modules/@ffmpeg-installer/win32-x64/ffmpeg.exe"
 mkdir -p _tools/tmp media/preview frames/a frames/b
 

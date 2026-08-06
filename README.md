@@ -1,8 +1,10 @@
-# Duştaş Demo Sitesi (Kütahya) — 6 Senaryo
+# ŞİRKETİM — Duşakabin & Banyo Örnek Sitesi (KARNER) — 6 Senaryo
 
-> **Bu site Duştaş için hazırlanmış bağımsız bir tasarım önerisidir, firmanın resmî
-> sitesi değildir.** Arama motorlarına kapalıdır (`noindex, nofollow` — hem meta
-> etiketi hem de `vercel.json` içinde `X-Robots-Tag`).
+> **Bu site gerçek bir firmaya ait değildir.** Duşakabin & banyo dekorasyon
+> sektörü için KARNER tarafından hazırlanmış bir vitrin demosudur. Marka adı,
+> telefon, adres ve e-posta alanlarının tamamı yer tutucudur.
+> Arama motorlarına kapalıdır (`noindex, nofollow` — hem meta etiketi hem de
+> `vercel.json` içinde `X-Robots-Tag`).
 
 Tek dosyalık statik demo. Build yok, bağımlılık yok.
 
@@ -153,29 +155,25 @@ duruyor); geniş aralık `.18–.30em` küçük etiketlerde — kicker, buton, n
 
 ## Uydurma bilgi politikası
 
-Bu site gerçek bir firma için hazırlandığından **doğrulanamayan hiçbir bilgi
-yazılmadı.** Sitede müşteri yorumu, puan, ödül, sertifika, bayilik veya marka
-ortaklığı iddiası **yok**.
+Sitede müşteri yorumu, puan, ödül, sertifika, bayilik veya marka ortaklığı
+iddiası **yok**. Sayı gerektiren her alan bilerek boş bırakıldı — gerçek bir
+firmaya uyarlanırken doldurulur.
 
-**Doğrulanmış** (bağımsız işletme rehberleriyle teyitli):
-
-- Meydan Mah. Mithat Paşa Cad. No:55 · 0507 537 36 43
-- Adnan Menderes Bulvarı No:22 · 0534 743 73 23
-- Ürün grupları: duşakabin, duş teknesi, küvet & jakuzi, banyo dolabı, vitrifiye,
-  banyo dekorasyon, ayna & aksesuar
-
-**Doğrulanamadı** — sayfada `[DOĞRULA]` / `[YIL]` etiketiyle görünür bırakıldı:
+**Yer tutucular** — hepsi sahte, hiçbiri gerçek bir işletmeye ait değil:
 
 | Yer tutucu | Nerede |
 |---|---|
+| `ŞİRKETİM` marka adı + `Ş` monogram | nav, footer, "Neden ŞİRKETİM", `<title>` |
+| `0500 000 00 00` / `0500 000 00 01` | telefon, `tel:`, `wa.me` bağlantıları |
+| `Örnek Mah. Örnek Cad. No:00` | iki showroom kartı + İletişim kutusu |
 | `[DOĞRULA]` çalışma saatleri | iki showroom kartında |
 | `[DOĞRULA]` "kendi montaj ekibimiz" | Neden Biz kartı |
 | `[E-POSTA]` | İletişim kutusu |
 | `[YIL]` `[PROJE]` `[SÜRE]` `[GARANTİ]` | istatistik şeridi (dördü de boş) |
 
-`dustas.com.tr` bu makineden açılmadı (DNS timeout), bilgiler bağımsız
-rehberlerden doğrulandı. Sitenin kendi metinlerini görebilirsen `[DOĞRULA]`
-etiketlerini oradan doldur.
+Ürün grupları (duşakabin, duş teknesi, küvet & jakuzi, banyo dolabı, vitrifiye,
+banyo dekorasyon, ayna & aksesuar) sektörün standart ürün ağacıdır; belirli bir
+firmadan alınmamıştır.
 
 ---
 
@@ -355,8 +353,10 @@ ffmpeg -y -i _raw/scroll_raw_alt1.mp4 -an -vf "scale=560:-2" -c:v libx264 -crf 3
 7. **Ürün fotoğrafları:** `<div class="prod-art">…</div>` yerine
    `<img class="prod-art" src="urunler/1.jpg" alt="…">` — ölçüler aynı kalır,
    SVG teknik çizimler silinir.
-8. **WhatsApp numarasını doğrula:** tüm `wa.me/905075373643` bağlantıları
-   işletmenin WhatsApp hattına gitmeli; ikinci şube için `905347437323`.
+8. **Marka adı ve numaralar:** `ŞİRKETİM` → firma adı, `Ş` monogramı → baş harf,
+   tüm `wa.me/905000000000` bağlantıları işletmenin WhatsApp hattına gitmeli
+   (ikinci şube: `905000000001`), `Örnek Mah. …` → gerçek adres ve
+   "Yol Tarifi Al" butonlarına `maps/dir/?api=1&destination=…` linki.
 9. `[E-POSTA]` gelmezse İletişim kutusunu üçten ikiye düşür (grid otomatik uyar).
 
 > **WhatsApp'tan HTML dosyası göndermek işe yaramaz** — `index.html` tek başına
