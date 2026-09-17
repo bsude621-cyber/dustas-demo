@@ -165,9 +165,9 @@ html.clean .demo-bar, html.clean .nav-demo{display:none !important}
      .55 denendi → 3.81:1 ile eşiğin altında kaldığı için kullanılmadı. */
   .demo-bar.dim{opacity:.8}
   .demo-bar-t{display:none}
-  .demo-toggle{display:inline-flex;align-items:center;gap:8px;min-height:48px;
-    padding:0 18px;border-radius:100px;font-size:13px;font-weight:700;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
+  .demo-toggle{display:inline-flex;align-items:center;gap:7px;min-height:44px;
+    padding:0 13px;border-radius:100px;font-size:13px;font-weight:700;
+    letter-spacing:.02em;text-transform:uppercase;color:var(--ink);
     background:rgba(255,255,255,.96);border:1px solid var(--line-2);
     box-shadow:0 10px 30px rgba(22,32,43,.18);
     backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
@@ -562,10 +562,50 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
   .btn{font-size:13px;letter-spacing:.1em;min-height:50px;padding:14px 22px;line-height:1.2}
   .shop-cta .btn{padding:14px 18px;font-size:13px}
 
-  /* --- hero --- */
-  .hero-kick{font-size:13px;letter-spacing:.18em;line-height:1.5;margin-bottom:18px}
-  .hero-sub{font-size:16px;line-height:1.6}
-  .hero-facts{font-size:13px;line-height:1.5}
+  /* --- hero ---
+     Telefonda amaç: metin okunur kalsın ama VİDEO görünsün. Punto tabanları
+     (gövde 16, etiket 13, dokunma 44) korunuyor; küçülen tek şey başlık,
+     dolgu ve satır araları. Hedef: metin bloğu ilk ekranın ≤%45'i. */
+  /* Mobil scrim: masaüstündeki YATAY perde kaldırıldı — telefonda ekranın
+     tamamını .56–.80 beyazla kaplayıp videoyu boğuyordu. Yerine metin bloğunun
+     oturduğu alt banda yoğunlaşan dikey perde. Üstteki ~%40 videoyu net gösterir.
+     Kontrast gerçek karelerle yeniden ölçüldü — README'deki mobil tabloya bak. */
+  /* MOBİL KADRAJ — 16:9 video dikey telefonda cover ile kırpılınca yatayda
+     sadece ~%26'lık bir şerit görünüyor. Her hero'nun 20 karesinde kenar/detay
+     yoğunluğu (scrim görünürlüğüyle ağırlıklandırılmış) ölçüldü, öznenin
+     bulunduğu pencere seçildi. hero3'te sol beşte bir neredeyse boş (0.04),
+     ortadan kırpınca ekranda odaksız zemin kalıyordu. Ölçüm: _tools/tmp/kadraj. */
+  .hero-video[data-h="1"]{object-position:48% center}   /* aydınlık banyo · x1.03 */
+  .hero-video[data-h="2"]{object-position:42% center}   /* su · sayısal optimum %53'tü
+       ama oradaki "detay" yağmurlama başlığı değil, sağdaki dikey profil çubuğunun
+       sert kenarıydı; 3 karede göz kontrolüyle %42 seçildi (başlık + su ortada kalıyor) */
+  .hero-video[data-h="3"]{object-position:87% center}   /* showroom · x1.07 */
+  .hero-scrim{background:
+    linear-gradient(0deg,
+      rgba(255,255,255,.93) 0%,
+      rgba(255,255,255,.92) 44%,
+      rgba(255,255,255,.88) 56%,
+      rgba(255,255,255,.45) 64%,
+      rgba(255,255,255,.12) 72%,
+      transparent 80%),
+    linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.06) 13%,transparent 22%)}
+  /* kicker metin bloğunun en üstünde, perdenin zayıfladığı yerde duruyor:
+     72 karede ölçüldü, --aqua-deep orada 3.85:1'de kalıyor → bir ton koyusu. */
+  .hero-kick{color:var(--aqua-dark)}
+  .hero-kick::before{background:var(--aqua-dark)}
+  .hero-kick{font-size:13px;letter-spacing:.06em;line-height:1.5;margin-bottom:12px;
+    gap:10px;white-space:nowrap}
+  .hero-kick::before{width:26px}
+  .hero-sub{font-size:16px;line-height:1.5;margin-bottom:20px}
+  .hero-facts{font-size:13px;line-height:1.4;margin-top:12px;gap:6px 16px}
+  .hero-facts span{gap:6px}
+  .hero-facts span::before{width:5px;height:5px}
+  /* iki CTA yan yana: iki satır 110px yer kaplıyordu, tek satırda ~60px.
+     Etiket sığmazsa düğmenin içinde sarar; yükseklik yine ≥50px. */
+  .hero-cta{gap:8px;flex-wrap:nowrap}
+  .hero-cta .btn{flex:1 1 0;min-width:0;justify-content:center;text-align:center;
+    padding:12px 10px;gap:7px;letter-spacing:.02em;line-height:1.25}
+  .hero-cta .btn svg{width:17px;height:17px}
 
   /* --- scroll-scrub sahnesi --- */
   .stage-num{font-size:13px;letter-spacing:.2em;line-height:1.5}
@@ -607,11 +647,8 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
   .brand-mono{width:32px;height:32px;font-size:17px}
   .brand-name{font-size:15px;letter-spacing:.14em}
   .brand-sub{font-size:13px;letter-spacing:.02em}
-  .hero-inner{padding-bottom:12vh}
-  .hero h1{font-size:clamp(32px,8.6vw,44px)}
-  .hero-cta{gap:10px}
-  .hero-facts{gap:10px 20px;margin-top:22px}
-  .hero-cta .btn{flex:1 1 100%;justify-content:center}
+  .hero-inner{padding-bottom:calc(var(--mbar-h) + var(--safe-b) + 26px)}
+  .hero h1{font-size:clamp(28px,7.6vw,34px);line-height:1.06;margin-bottom:16px}
   .btn{padding:14px 18px;letter-spacing:.08em}
   .prod-grid{grid-template-columns:1fr}
   .why-grid{grid-template-columns:1fr}
@@ -641,7 +678,12 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
   .hero h1{font-size:clamp(24px,3.2vw,30px);margin-bottom:12px}
   .hero-sub{max-width:none;margin-bottom:16px;font-size:16px;line-height:1.5}
   .hero-facts{margin-top:14px;gap:8px 18px}
-  .hero-cta .btn{flex:0 1 auto}          /* yatayda yan yana kalsınlar */
+  .hero-cta{flex-wrap:wrap}
+  .hero-cta .btn{flex:0 1 auto;padding:13px 20px}   /* yatayda yan yana kalsınlar */
+  /* metin bloğu tüm genişliği kaplamasın → video sağda görünür kalsın */
+  .hero h1{max-width:560px}
+  .hero-sub{max-width:520px}
+  .hero-cta,.hero-facts{max-width:560px}
   .stick{height:100svh;min-height:360px}
   .scrub-card{bottom:calc(var(--mbar-h) + var(--safe-b) + 10px);padding:16px 18px}
   .scrub-card h3{font-size:19px}
@@ -1303,6 +1345,7 @@ if (heroVideo){
   else {
     const small = innerWidth < 860 ? '-m' : '';    // mobil için hafif kopya
     const base  = 'media/hero' + HERO + small;
+    heroVideo.dataset.h = HERO;                    // mobil kadraj (object-position) CSS'i seçsin
     let alt = VFMT === 'webm' ? 'mp4' : 'webm';
     let blocked = false;
     const vplay = () => { const p = heroVideo.play(); if (p && p.catch) p.catch(() => { blocked = true; }); };

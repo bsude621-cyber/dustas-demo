@@ -44,14 +44,17 @@ done
 
 # ---------- MOBİL SET ----------
 # Mobilde (innerWidth < 860) site bu hafif kopyaları ister:
-#   media/heroN-m.mp4|webm   900px  → hero başına 0.30–0.50 MB (masaüstü 0.9–1.5 MB)
-#   frames/<a|b>/m/%04d.jpg  1000px → STEP=2 ile 60 kare ≈ 1.5 MB (masaüstü 6 MB)
+#   media/heroN-m.mp4|webm   1280x720 → hero başına 0.41–0.69 MB (masaüstü 0.9–1.5 MB)
+#   frames/<a|b>/m/%04d.jpg  1000px   → STEP=2 ile 60 kare ≈ 1.5 MB (masaüstü 6 MB)
+# NEDEN 1280: iPhone'da hero tam genişlik kaplıyor, 390 CSS px × DPR 3 = 1170 cihaz
+# pikseli gerekiyor. Önceki 900 px'lik kopya orada 0.77 oranında kalıp bulanık
+# görünüyordu; 1280 ile oran 1.09. Küçültme, mobil kare setinden değil buradan yapılmaz.
 for N in 1 2 3; do
-  echo ">>> hero$N: mobil kopya"
-  "$FF" -y -v error -i "media/hero$N.mp4" -an -vf "scale=900:-2" \
-    -c:v libx264 -crf 30 -preset slow -pix_fmt yuv420p -movflags +faststart \
+  echo ">>> hero$N: mobil kopya (1280x720)"
+  "$FF" -y -v error -i "media/hero$N.mp4" -an -vf "scale=1280:-2" \
+    -c:v libx264 -crf 31 -preset slow -pix_fmt yuv420p -movflags +faststart \
     "media/hero$N-m.mp4"
-  "$FF" -y -v error -i "media/hero$N-m.mp4" -an -c:v libvpx-vp9 -crf 40 -b:v 0 \
+  "$FF" -y -v error -i "media/hero$N-m.mp4" -an -c:v libvpx-vp9 -crf 42 -b:v 0 \
     -row-mt 1 -deadline good -cpu-used 4 "media/hero$N-m.webm"
 done
 for L in a b; do

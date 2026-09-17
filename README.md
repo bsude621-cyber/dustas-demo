@@ -66,7 +66,7 @@ index.html          demo site (senaryo parametreli)
 senaryolar.html     6 senaryo karşılaştırma galerisi
 media/
   hero1..3.mp4/.webm     16 sn dikişsiz boomerang loop, 1600x900, sessiz
-  hero1..3-m.mp4/.webm   aynı loop, 900px — MOBİL (0.30–0.50 MB)
+  hero1..3-m.mp4/.webm   aynı loop, 1280x720 — MOBİL (0.41–0.69 MB)
   preview/h1..3.mp4      galeri önizlemeleri (560px, ~130-220 KB)
   preview/sa,sb.mp4      galeri önizlemeleri
 frames/a/0001..0120.jpg    scroll-scrub kareleri (1440px) — masaüstü
@@ -76,14 +76,14 @@ _raw/               ham Higgsfield çıktıları — DAĞITILMAZ (.gitignore + .
 _tools/             npm ffmpeg/ffprobe — DAĞITILMAZ
 ```
 
-Dağıtılan toplam **32 MB** (mobil setle birlikte; öncesi 21.7 MB).
+Dağıtılan toplam **33 MB** (mobil setle birlikte; öncesi 21.7 MB).
 Ziyaretçi başına indirilen (ölçüldü, önbellek kapalı):
 
 | | masaüstü | mobil (<860px) |
 |---|---|---|
-| hero | 0.9–1.5 MB | **0.30–0.50 MB** (`-m` kopya) |
+| hero | 0.9–1.5 MB | **0.41–0.69 MB** (`-m` kopya, 1280×720) |
 | kareler | 120 × 1440px ≈ 6 MB | **60 × 1000px ≈ 1.5 MB** (`/m/` + `STEP=2`) |
-| toplam | ~6.9 MB | **1.93 MB** (en ağır senaryo `?h=3&s=b`: **2.17 MB**) |
+| toplam | ~6.9 MB | **2.00 MB** (en ağır senaryo `?h=3&s=b`: **2.28 MB**) |
 
 Mobilde kareler **sahne yaklaşana kadar hiç inmez** (IntersectionObserver);
 hero'da durup geri çıkan ziyaretçi sadece HTML + hero videosunu indirir (~0.4 MB).
@@ -170,7 +170,8 @@ Site Ağustos 2026'da masaüstü için kurulmuştu; Eylül 2026'da telefonda da
 masaüstü kadar iyi çalışsın diye elden geçirildi. **Masaüstü görünümü
 değişmedi** — neredeyse tüm değişiklikler `@media(max-width:860px)` ve
 `@media(max-height:560px) and (orientation:landscape)` bloklarının içinde.
-İçerik, metinler, bölüm sırası ve `[KÖŞELİ PARANTEZ]` yer tutucuları aynı kaldı.
+İçerik, metinler, bölüm sırası, `ŞİRKETİM` / `[KÖŞELİ PARANTEZ]` yer tutucuları ve
+`?clean=1` kayıt modu aynı kaldı.
 
 ### Ne değişti
 
@@ -178,7 +179,9 @@ değişmedi** — neredeyse tüm değişiklikler `@media(max-width:860px)` ve
 |---|---|---|
 | 44 px altı dokunma hedefi (375 px) | **32** | **0** |
 | 13 px altı yazı (375 px) | **94** | **0** |
-| Ziyaretçi başına inen veri (375 px) | 3.93 MB | **1.93 MB** |
+| Hero metin bloğu / ilk ekran (375 px) | **%55.9** | **%41.1** |
+| Mobil hero çözünürlüğü / gereken (390 px, DPR 3) | 900 px → **0.77×** | 1280 px → **1.09×** |
+| Ziyaretçi başına inen veri (375 px) | 3.93 MB | **2.00 MB** |
 | Yatay taşma | yoktu | yok |
 
 1. **Dokunma hedefleri.** Nav markası ve hamburger (44×44), tüm `.btn`'ler (50 px),
@@ -208,6 +211,51 @@ değişmedi** — neredeyse tüm değişiklikler `@media(max-width:860px)` ve
    `.hero-fallback` görünüyor. Otomatik oynatma engellenirse (iOS Düşük Güç Modu)
    ilk dokunuş/tıklama/tuşta başlatılıyor. `navigator.connection.saveData` açıksa
    video hiç indirilmiyor.
+
+#### İkinci tur — gerçek telefonda görülenler
+
+Mert siteyi telefonda açınca iki şey çıktı: *"yazılar ve butonlar o kadar büyük ki
+arkadaki videoda ne olduğu anlaşılmıyor"* ve mobil hero'nun bulanıklığı.
+
+5a. **Hero ilk ekranda küçültüldü.** Punto tabanları (gövde 16, etiket 13,
+   dokunma 44) hiç bozulmadı; küçülen yalnızca başlık, dolgu ve boşluklar:
+   H1 `clamp(32–44px)` → `clamp(28–34px)` ve satır aralığı 1.06;
+   kicker harf aralığı `.18em` → `.06em` (iki satırdan bire indi);
+   **iki CTA yan yana** (`flex:1 1 0`, etiket düğme içinde sarıyor) — iki satır
+   110 px yer kaplıyordu, tek satırda 59 px; alt metin satır aralığı 1.5;
+   `hero-facts` 49 px → 42 px; `hero-inner` alt dolgusu alt barın yüksekliğine
+   bağlandı. Senaryo hapı 124×48 → **105×44**.
+   Sonuç: metin bloğu 375'te **%55.9 → %41.1**, 390'da **%52.5 → %40.2**.
+5b. **Mobil scrim yeniden yazıldı.** Masaüstündeki **yatay** perde telefonda
+   ekranın tamamını `.56–.80` beyazla kaplıyordu — videonun hiçbir yeri net
+   değildi. Mobilde yatay katman kaldırıldı, yerine metin bloğunun oturduğu alt
+   banda yoğunlaşan dikey perde geldi; **üstten %20'ye kadar perde tamamen sıfır.**
+   Kontrast tahmin edilmedi: üç hero'nun 24'er karesi (72 kare) alınıp mobil
+   kutuya (`cover`, 375×812) kırpıldı, CSS'teki iki gradyan piksel piksel
+   kompozitlendi ve her metin bandı için en kötü tek piksel hesaplandı
+   (tablo aşağıda). Kicker perdenin zayıfladığı yerde kaldığı için
+   `--aqua-deep` (3.85:1) yerine bir ton koyusu **`--aqua-dark`** yapıldı.
+5c. **Mobil hero çözünürlüğü 900 → 1280×720.** iPhone'da hero tam genişlik:
+   390 CSS px × DPR 3 = 1170 cihaz pikseli. 900 px'lik kopya orada
+   `videoWidth / (clientWidth × DPR)` = **0.77** veriyordu (bulanık);
+   1280 ile **1.09**. mp4 `crf 31`, webm `crf 42` → hero başına 0.41–0.69 MB.
+   Takas: bütçe 1.93 → 2.00 MB (en ağır senaryo 2.17 → **2.28 MB**), 2.5 MB
+   sınırının altında kaldığı için mobil kare setinden kısıntı **gerekmedi**.
+5d. **Mobil kadraj (`object-position`) her hero için ayrı ölçüldü.** 16:9 video
+   dikey telefonda `cover` ile kırpılınca yatayda sadece **%26'lık** bir şerit
+   görünüyor. Her hero'nun 20 karesinde kenar/detay yoğunluğu ölçüldü (satırlar
+   scrim görünürlüğüyle ağırlıklandırıldı) ve en iyi pencere arandı:
+
+   | hero | 5 dilim detay profili (sol→sağ) | seçilen `object-position` | ortadan kırpmaya göre |
+   |---|---|---|---|
+   | 1 — aydınlık banyo | 0.55 / 0.88 / 1.0 / 0.89 / 0.77 | **48%** | ×1.03 |
+   | 2 — su | 0.59 / 1.0 / 1.0 / 0.78 / 0.18 | **42%** | sayısal optimum %53'tü, düzeltildi |
+   | 3 — showroom | **0.04** / 0.82 / 0.95 / 1.0 / 0.99 | **87%** | ×1.07 |
+
+   hero3'te sol beşte bir neredeyse boş; ortadan kırpınca ekranda odaksız zemin
+   kalıyordu, %87 ile duşakabin + ayna + vitrifiye görünüyor. hero2'de sayısal
+   optimum yanılttı — oradaki "detay" yağmurlama başlığı değil, sağdaki profil
+   çubuğunun sert kenarıydı; üç karede göz kontrolüyle %42'ye çekildi.
 6. **Scroll-scrub mobil set.** `frames/<a|b>/m/` (1000 px, ~25 KB/kare) + `STEP=2`
    → 60 kare ≈ 1.5 MB (masaüstünde 120 × 1440 px ≈ 6 MB). Kareler
    `IntersectionObserver` ile **sahne ekranın %40'ı kadar yaklaşınca** inmeye
@@ -216,12 +264,12 @@ değişmedi** — neredeyse tüm değişiklikler `@media(max-width:860px)` ve
    showroom, iletişim; istatistik şeridi bilerek 2 sütun kaldı — kısa etiketler).
    Yapışkan başlık mobilde 65 px (1160 px altındaki eski hali 77 px), kaydırınca 60 px —
    44 px'lik marka dokunma hedefi + 2×10 px dolgu bunun tabanı.
-   **≤360 px'te navdaki marka alt satırı (`Kütahya · Duşakabin & Banyo`) gizlendi**:
+   **≤360 px'te navdaki marka alt satırı (`Duşakabin & Banyo Dekorasyon`) gizlendi**:
    13 px'te iki satıra sarıp başlığı 75 px'e çıkarıyordu. Aynı bilgi hemen
    altındaki hero kicker'ında ve footer'da duruyor, içerik kaybı yok.
    375 px'te kicker + başlık + alt metin + iki CTA ilk ekranda
-   (CTA 534–644 px, alt bar 743 px'te başlıyor).
-8. **Senaryo anahtarı** mobilde **katlanır**: kapalıyken tek bir 48 px'lik
+   (CTA 605–664 px, alt bar 743 px'te başlıyor).
+8. **Senaryo anahtarı** mobilde **katlanır**: kapalıyken tek bir 44 px'lik
    "Senaryo" hapı, açılınca yukarı doğru panel. Alt barla çakışmıyor
    (hap alt kenarı 738 px, alt bar 743 px'te başlıyor), Esc ve dışına dokunmayla
    kapanıyor, menü açıkken gizleniyor. Soluklaşma mobilde `.36` yerine `.8` —
@@ -230,7 +278,8 @@ değişmedi** — neredeyse tüm değişiklikler `@media(max-width:860px)` ve
    metni, kapanış kartı, alt bar ve senaryo anahtarında `env(safe-area-inset-*)`.
 10. **Yatay mod** (`max-height:560px`): hero `min-height` kalkıyor, içerik navın
     altından başlıyor, başlık 24–30 px'e iniyor → 812×375'te başlık, alt metin ve
-    CTA'lar ilk ekranda (CTA 238–288 px, alt bar 306 px'te).
+    CTA'lar ilk ekranda (CTA 238–288 px, alt bar 306 px'te). Metin bloğu
+    `max-width:560px` ile sınırlandı → sağda video görünür kalıyor (%56.5 → %44.3).
 
 `senaryolar.html` de aynı kurallara göre düzeltildi (9 küçük hedef + 80 küçük
 yazı → 0).
@@ -250,14 +299,48 @@ Her genişlikte sayfanın tamamı kaydırıldı, sonra ölçüldü:
 | 375×812 menü açık | yok | 0 | 0 | temiz |
 | 375×812 senaryo paneli açık | yok | 0 | 0 | temiz |
 | 768×1024 | yok | 0 | 0 | temiz |
+| `?clean=1` 375×812 | yok | 0 | 0 | temiz |
 | 1440×900 (masaüstü) | yok | değişmedi | değişmedi | temiz |
+
+#### Hero ilk ekran — metin bloğu / viewport alanı (hedef ≤%45)
+
+Blok = kicker + H1 + alt metin + CTA'lar + `hero-facts` birleşik kutusu,
+viewport'a kırpılmış alan.
+
+| Ekran | Öncesi | Sonrası | Blok yüksekliği | `videoWidth/(cssW×DPR)` |
+|---|---|---|---|---|
+| 375×812 DPR 3 | %55.9 | **%41.1** | 373 px | **1.14** |
+| 390×844 DPR 3 | %52.5 | **%40.2** | 378 px | **1.09** |
+| 414×896 DPR 3 | — | **%38.9** | 386 px | **1.03** |
+| 360×800 DPR 2 | — | **%43.9** | 395 px | 1.78 |
+| 320×800 DPR 2 | — | **%43.2** | 395 px | 2.00 |
+| 812×375 yatay DPR 3 | %56.5 | **%44.3** | 241 px | 0.53 (aşağıda) |
+
+#### Hero scrim kontrastı — gerçek video kareleriyle (72 kare, en kötü tek piksel)
+
+Mobil scrim CSS'teki iki gradyan piksel piksel kompozitlenip ölçüldü:
+
+| Metin | Renk / punto | Eşik | hero1 | hero2 | hero3 |
+|---|---|---|---|---|---|
+| kicker | `--aqua-dark` 13 px | 4.5 | **5.19** | **4.73** | **4.82** |
+| H1 | `--ink` 28 px | 3.0 | **13.87** | **13.28** | **13.09** |
+| H1 `em` | `--aqua-deep` 28 px | 3.0 | **4.89** | **4.69** | **4.62** |
+| alt metin | `--ink-dim` 16 px | 4.5 | **4.91** | **5.22** | **4.82** |
+| `hero-facts` | `--ink-dim` 13 px | 4.5 | **4.88** | **5.29** | **5.35** |
+
+Aynı ölçüm `--aqua-deep` kicker ile 1.93–2.55 veriyordu; perde de üstten %22
+yerine %20'de sıfırlanacak şekilde keskinleştirildi (video alanından yalnızca
+%2 feda edildi, kontrast 1.93 → 4.73'e çıktı).
 
 Elle test edilenler (375×812 ve 812×375, ölçülerek): mobil menü aç/kapa · Esc ile
 kapanma ve odak dönüşü · `body` kaydırma kilidi · alt bardaki `tel:`/`wa.me`
 bağlantıları · senaryo anahtarı aç/kapa ve senaryo değiştirme (scroll konumu
 korunuyor: `?h=1&s=b`, `scrollY` geri geliyor) · hero videosu (`hero1-m.webm`,
-900×506, `readyState 4`, oynuyor, tek `src`, 0 `<source>`) · scroll-scrub
-(`frames/a/m/0001.jpg` … 60 kare, kapanış kartı 425–715 px, alt barı örtmüyor) ·
+**1280×720**, `readyState 4`, oynuyor, tek `src`, 0 `<source>`) · iPhone UA ile
+mp4 seçimi (`hero3-m.mp4`, tek istek) · webm engellenince mp4'e düşüş, ikisi de
+engellenince `.hero-fallback` · scroll-scrub (`frames/a/m/0001.jpg` … 60 kare,
+kapanış kartı 425–715 px, alt barı örtmüyor) · `?clean=1` (demo çubuğu ve
+"Senaryolar" sekmesi gizli, `ŞİRKETİM` yer tutucuları yerinde) ·
 `prefers-reduced-motion` (video hiç istenmiyor, reveal'lar görünür, scrub çalışıyor).
 
 ### Kalan bilinen sorunlar
@@ -271,6 +354,14 @@ korunuyor: `?h=1&s=b`, `scrollY` geri geliyor) · hero videosu (`hero1-m.webm`,
 - Yatay modda (812×375) `.hero-facts` şeridi sabit alt barın arkasında kalıyor;
   kicker + başlık + alt metin + CTA'lar ilk ekranda. 375 px yükseklikte beşini
   birden sığdırmak mümkün değil.
+- **Yatay modda hero çözünürlüğü yetmiyor:** 812 CSS px × DPR 3 = 2436 cihaz
+  pikseli gerekiyor, mobil kopya 1280 px → oran **0.53**. Masaüstü kopyası
+  (1600 px) bile 0.66 verir ve 0.9–1.5 MB'a mal olur; telefon yatayda bu
+  demolarda nadir kullanıldığı için bütçe dikey moda ayrıldı.
+- Mobil kadrajda (`object-position`) kenar/detay ölçümü **tek başına yeterli
+  değil**: hero2'de sayısal optimum, öznenin (yağmurlama başlığı) değil sağdaki
+  düz profil çubuğunun sert kenarının olduğu yeri seçti. Ölçüm her zaman
+  birkaç karede göz kontrolüyle doğrulanmalı.
 - `.stats` şeridi mobilde 2 sütun (tek sütun değil) — dört kısa etiket için
   bilerek böyle bırakıldı.
 - Mobil kareler 1000 px; DPR 2 telefonda tuval 1443 CSS px genişliğinde çiziyor,
@@ -323,7 +414,7 @@ firmadan alınmamıştır.
 | **Scroll hız profili** | duraklama yok, cut yok, tekrar eden kare yok; scroll b'de hız 5.49 / 5.52 / 5.51 |
 | **Medya bütünlüğü** | 254 dosyanın 254'ü sunucudan **200** dönüyor; 6 senaryonun altısı da tam |
 | **Watermark** | beş ham klipte de yok — `delogo` gerekmedi |
-| Dağıtılan boyut | **32 MB** (hero 11 MB + mobil hero 2 MB + kareler 12 MB + mobil kareler 7 MB) |
+| Dağıtılan boyut | **33 MB** (hero 11 MB + mobil hero 3.3 MB + kareler 12 MB + mobil kareler 7 MB) |
 | `noindex` | index.html + senaryolar.html meta, ayrıca `vercel.json` `X-Robots-Tag` |
 | Kontrast | yukarıdaki tablo — tüm metin/zemin çiftleri AA (≥4.5:1) |
 
@@ -453,7 +544,10 @@ ffmpeg -y -i _raw/scroll_raw_alt1.mp4 -an -vf "scale=560:-2" -c:v libx264 -crf 3
 | Sahne metinleri | JS `COPY` sabiti (scroll videosuna göre iki set) |
 | Mobil kare seyreltme | JS `STEP = isMobile ? 2 : 1` (`isMobile = innerWidth < 860`) |
 | Mobil kare klasörü | JS `FRAME_DIR` → `frames/<a\|b>/m/` · çözünürlük `_tools/build.sh` `scale=1000` |
-| Mobil hero kopyası | JS `small = innerWidth < 860 ? '-m' : ''` · `build.sh` `scale=900`, `crf 30/40` |
+| Mobil hero kopyası | JS `small = innerWidth < 860 ? '-m' : ''` · `build.sh` `scale=1280`, `crf 31/42` |
+| Mobil hero kadrajı | `.hero-video[data-h="N"]{object-position:…}` (mobil blokta) · ölçüm: kenar yoğunluğu + göz kontrolü |
+| Hero mobil perde | `@media(max-width:860px)` içindeki `.hero-scrim` — değiştirirsen kontrastı gerçek karelerle yeniden ölç |
+| Hero ilk ekran yoğunluğu | mobil blokta `.hero h1` / `.hero-kick` / `.hero-sub` / `.hero-cta` / `.hero-inner` dolgusu |
 | Kare preload eşiği | scrub IO `rootMargin:'0px 0px -40% 0px'` (büyütürsen daha erken iner) |
 | Mobil alt bar yüksekliği | `:root --mbar-h` (`body` dolgusu + senaryo anahtarı buradan hesaplanır) |
 | Yapışkan başlık yüksekliği | JS `setNavH()` → `--nav-h` (mobil menünün üst kenarı) |
