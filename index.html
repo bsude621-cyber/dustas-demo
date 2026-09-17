@@ -66,7 +66,7 @@
   --safe-l:env(safe-area-inset-left,0px);
   --safe-r:env(safe-area-inset-right,0px);
   --safe-b:env(safe-area-inset-bottom,0px);
-  --mbar-h:68px;
+  --mbar-h:69px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -471,9 +471,13 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
   background:rgba(255,255,255,.96);border-top:1px solid var(--line);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   box-shadow:0 -6px 24px rgba(22,32,43,.10)}
+/* Birincil eylem (teklif) ikincisinden (arama) geniş: hero'daki CTA çifti
+   kaldırıldığı için sayfadaki tek birincil dönüşüm düğmesi bu. */
 .mbar a{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  min-height:50px;padding:12px 10px;border-radius:9px;font-size:13px;letter-spacing:.08em;
-  text-transform:uppercase;font-weight:800;line-height:1.2}
+  min-height:50px;padding:10px 6px;border-radius:9px;font-size:13px;letter-spacing:.02em;
+  text-transform:uppercase;font-weight:800;line-height:1.22;text-align:center}
+.mbar .m-wa{flex:2 1 0;min-width:0}
+.mbar .m-tel{flex:1 1 0;min-width:0}
 .mbar svg{width:19px;height:19px;flex:none}
 .mbar .m-wa{background:var(--wa);color:#fff}
 .mbar .m-tel{background:var(--surface);color:var(--ink);border:1px solid var(--line-2)}
@@ -563,49 +567,62 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
   .shop-cta .btn{padding:14px 18px;font-size:13px}
 
   /* --- hero ---
-     Telefonda amaç: metin okunur kalsın ama VİDEO görünsün. Punto tabanları
-     (gövde 16, etiket 13, dokunma 44) korunuyor; küçülen tek şey başlık,
-     dolgu ve satır araları. Hedef: metin bloğu ilk ekranın ≤%45'i. */
-  /* Mobil scrim: masaüstündeki YATAY perde kaldırıldı — telefonda ekranın
-     tamamını .56–.80 beyazla kaplayıp videoyu boğuyordu. Yerine metin bloğunun
-     oturduğu alt banda yoğunlaşan dikey perde. Üstteki ~%40 videoyu net gösterir.
-     Kontrast gerçek karelerle yeniden ölçüldü — README'deki mobil tabloya bak. */
+     Telefonda düzen: metin bloğu NAVIN HEMEN ALTINDA, videonun büyük ve
+     kesintisiz kısmı onun altında. Punto tabanları (gövde 15, etiket 12,
+     dokunma 44) korunuyor; küçülen tek şey başlık, dolgu ve satır araları.
+     Hedef: metin bloğu ilk ekranın ≤%30'u.
+     Masaüstünde metin hâlâ altta ve iki CTA düğmesi duruyor — bu blok dışında. */
+  .hero-inner{justify-content:flex-start;
+    padding-top:calc(var(--nav-h,64px) + 10px);padding-bottom:0}
+  .hero h1{font-size:clamp(24px,4.6vw,34px);line-height:1.1;margin-bottom:12px}
   /* MOBİL KADRAJ — 16:9 video dikey telefonda cover ile kırpılınca yatayda
      sadece ~%26'lık bir şerit görünüyor. Her hero'nun 20 karesinde kenar/detay
      yoğunluğu (scrim görünürlüğüyle ağırlıklandırılmış) ölçüldü, öznenin
      bulunduğu pencere seçildi. hero3'te sol beşte bir neredeyse boş (0.04),
      ortadan kırpınca ekranda odaksız zemin kalıyordu. Ölçüm: _tools/tmp/kadraj. */
-  .hero-video[data-h="1"]{object-position:48% center}   /* aydınlık banyo · x1.03 */
-  .hero-video[data-h="2"]{object-position:42% center}   /* su · sayısal optimum %53'tü
-       ama oradaki "detay" yağmurlama başlığı değil, sağdaki dikey profil çubuğunun
-       sert kenarıydı; 3 karede göz kontrolüyle %42 seçildi (başlık + su ortada kalıyor) */
-  .hero-video[data-h="3"]{object-position:87% center}   /* showroom · x1.07 */
+  .hero-video[data-h="1"]{object-position:49% center}   /* aydınlık banyo · x1.01 */
+  .hero-video[data-h="2"]{object-position:61% center}   /* su · x1.18 — perde tersine
+       çevrilince görünen bant değişti, kadraj yeniden ölçüldü: %42 artık neredeyse
+       boş beyaz veriyordu, %61'de su + profil kenarı ekranda kalıyor */
+  .hero-video[data-h="3"]{object-position:87% center}   /* showroom · x1.06 */
+  /* PERDE TERS ÇEVRİLDİ — metin yukarı çıktığı için perde de üst banda toplandı.
+     %62'den sonra tamamen sıfır: videonun alt yarısı hiç beyazlatılmıyor.
+     Kontrast tahmin edilmedi, gerçek karelerle yeniden ölçüldü (README). */
   .hero-scrim{background:
-    linear-gradient(0deg,
-      rgba(255,255,255,.93) 0%,
-      rgba(255,255,255,.92) 44%,
-      rgba(255,255,255,.88) 56%,
-      rgba(255,255,255,.45) 64%,
-      rgba(255,255,255,.12) 72%,
-      transparent 80%),
-    linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.06) 13%,transparent 22%)}
-  /* kicker metin bloğunun en üstünde, perdenin zayıfladığı yerde duruyor:
-     72 karede ölçüldü, --aqua-deep orada 3.85:1'de kalıyor → bir ton koyusu. */
+    linear-gradient(180deg,
+      rgba(255,255,255,.94) 0%,
+      rgba(255,255,255,.93) 40%,
+      rgba(255,255,255,.86) 48%,
+      rgba(255,255,255,.42) 55%,
+      rgba(255,255,255,.10) 59%,
+      transparent 62%)}
+  /* kicker perdenin en güçlü yerinde ama --aqua-deep bazı karelerde eşiğin
+     altına düşüyordu (72 karede ölçüldü) → bir ton koyusu kaldı. */
   .hero-kick{color:var(--aqua-dark)}
   .hero-kick::before{background:var(--aqua-dark)}
-  .hero-kick{font-size:13px;letter-spacing:.06em;line-height:1.5;margin-bottom:12px;
-    gap:10px;white-space:nowrap}
-  .hero-kick::before{width:26px}
-  .hero-sub{font-size:16px;line-height:1.5;margin-bottom:20px}
-  .hero-facts{font-size:13px;line-height:1.4;margin-top:12px;gap:6px 16px}
+  .hero-kick{font-size:12px;letter-spacing:.06em;line-height:1.5;margin-bottom:5px;
+    gap:9px;white-space:nowrap}
+  .hero-kick::before{width:22px}
+  .hero-sub{font-size:15px;line-height:1.45;margin-bottom:6px}
+  /* metin bağlantısının 44 px'lik dokunma kutusu blok yüksekliğini şişirmesin:
+     kutu komşuların boşluğuyla üst üste biniyor, görsel olarak çakışma yok
+     (bağlantının kendi 12 px iç dolgusu payı bırakıyor). */
+  .hero-facts{font-size:12px;line-height:1.4;margin-top:-2px;gap:5px 14px}
   .hero-facts span{gap:6px}
   .hero-facts span::before{width:5px;height:5px}
-  /* iki CTA yan yana: iki satır 110px yer kaplıyordu, tek satırda ~60px.
-     Etiket sığmazsa düğmenin içinde sarar; yükseklik yine ≥50px. */
-  .hero-cta{gap:8px;flex-wrap:nowrap}
-  .hero-cta .btn{flex:1 1 0;min-width:0;justify-content:center;text-align:center;
-    padding:12px 10px;gap:7px;letter-spacing:.02em;line-height:1.25}
-  .hero-cta .btn svg{width:17px;height:17px}
+
+  /* HERO'DA CTA ÇİFTİ YOK — alt bar zaten WhatsApp taşıyor, ekranda iki
+     WhatsApp düğmesi oluyordu. Birincil eylem alt bara geçti; hero'da yalnızca
+     yüksekliği düğme kadar şişirmeyen kısa bir metin bağlantısı kaldı
+     (dokunma alanı yine 44 px, görsel yükseklik 20 px). */
+  .hero-cta .btn-wa{display:none}
+  .hero-cta{gap:0;flex-wrap:nowrap;margin-top:-14px}
+  .hero-cta .btn-ghost{background:none;border:0;box-shadow:none;
+    padding:12px 0;min-height:44px;font-size:13px;letter-spacing:.06em;
+    color:var(--aqua-dark);gap:8px;align-self:flex-start;
+    text-decoration:underline;text-underline-offset:4px;
+    text-decoration-color:rgba(23,95,121,.45)}
+  .hero-cta .btn-ghost:hover{background:none;transform:none;color:var(--aqua-dark)}
 
   /* --- scroll-scrub sahnesi --- */
   .stage-num{font-size:13px;letter-spacing:.2em;line-height:1.5}
@@ -622,7 +639,7 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
     margin-top:4px}
   .why-card p{font-size:16px;line-height:1.6}
   .stat .lbl{font-size:13px;letter-spacing:.1em;line-height:1.5}
-  .stats-note{font-size:14px;line-height:1.6}
+  .stats-note{font-size:15px;line-height:1.6}
   .step .n{font-size:13px;letter-spacing:.2em;line-height:1.5}
   .step p{font-size:16px;line-height:1.6}
   .shop-tag{font-size:13px;letter-spacing:.16em;line-height:1.5}
@@ -630,7 +647,7 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
   .shop-row .k{font-size:13px;letter-spacing:.12em;line-height:1.5}
   .shop-row a{display:inline-flex;align-items:center;min-height:44px}
   .tile-lbl{font-size:13px;letter-spacing:.16em;line-height:1.5}
-  .tile-sub{font-size:14px;line-height:1.55}
+  .tile-sub{font-size:15px;line-height:1.55}
   .tile-val a{display:inline-flex;align-items:center;min-height:44px}
   .tbc{font-size:13px;line-height:1.5;padding:3px 8px}
   .demo-note b{font-size:13px;letter-spacing:.16em;line-height:1.5}
@@ -647,8 +664,7 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
   .brand-mono{width:32px;height:32px;font-size:17px}
   .brand-name{font-size:15px;letter-spacing:.14em}
   .brand-sub{font-size:13px;letter-spacing:.02em}
-  .hero-inner{padding-bottom:calc(var(--mbar-h) + var(--safe-b) + 26px)}
-  .hero h1{font-size:clamp(28px,7.6vw,34px);line-height:1.06;margin-bottom:16px}
+  .hero h1{font-size:clamp(24px,6.6vw,27px);line-height:1.04;margin-bottom:6px}
   .btn{padding:14px 18px;letter-spacing:.08em}
   .prod-grid{grid-template-columns:1fr}
   .why-grid{grid-template-columns:1fr}
@@ -676,10 +692,8 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
     padding-top:calc(var(--nav-h,64px) + 14px);padding-bottom:16px}
   .hero-kick{margin-bottom:10px}
   .hero h1{font-size:clamp(24px,3.2vw,30px);margin-bottom:12px}
-  .hero-sub{max-width:none;margin-bottom:16px;font-size:16px;line-height:1.5}
-  .hero-facts{margin-top:14px;gap:8px 18px}
-  .hero-cta{flex-wrap:wrap}
-  .hero-cta .btn{flex:0 1 auto;padding:13px 20px}   /* yatayda yan yana kalsınlar */
+  .hero-sub{max-width:none;margin-bottom:12px;font-size:15px;line-height:1.5}
+  .hero-facts{margin-top:12px;gap:8px 18px}
   /* metin bloğu tüm genişliği kaplamasın → video sağda görünür kalsın */
   .hero h1{max-width:560px}
   .hero-sub{max-width:520px}
@@ -1207,7 +1221,7 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
   <a class="m-wa" target="_blank" rel="noopener"
      href="https://wa.me/905000000000?text=Merhaba%2C%20du%C5%9Fakabin%20i%C3%A7in%20fiyat%20almak%20istiyorum.">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.41-.56-.42h-.47c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
-    WhatsApp
+    WhatsApp'tan Teklif Al
   </a>
   <a class="m-tel" href="tel:+905000000000">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
