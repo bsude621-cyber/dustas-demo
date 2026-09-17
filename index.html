@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ŞİRKETİM — Duşakabin &amp; Banyo Dekorasyon · KARNER Demo</title>
 <meta name="description" content="Özel ölçü duşakabin üretimi, duş teknesi, küvet, banyo dolabı ve vitrifiye için örnek site tasarımı. KARNER tarafından hazırlanmış demo — gerçek bir firmaya ait değildir.">
 <!-- DEMO: resmî siteyle karışmasın diye arama motorlarına kapalı -->
@@ -61,6 +61,12 @@
   --font-display:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --font-ui:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --pad:min(6vw,56px);
+  /* mobil: çentikli telefonlarda kenar boşluğu + sabit alt barın yüksekliği.
+     --mbar-h ölçülmüş değerdir (13px yazı + 15px dolgu = 50px içerik + 2×9px kap). */
+  --safe-l:env(safe-area-inset-left,0px);
+  --safe-r:env(safe-area-inset-right,0px);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --mbar-h:68px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -79,12 +85,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* ============ NAV ============ */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:20px var(--pad);display:flex;align-items:center;justify-content:space-between;
+  padding:20px max(var(--pad),var(--safe-r)) 20px max(var(--pad),var(--safe-l));
+  display:flex;align-items:center;justify-content:space-between;
   transition:background .35s ease, backdrop-filter .35s ease, border-color .35s ease, padding .35s ease;
   border-bottom:1px solid transparent}
 .nav.scrolled{background:rgba(247,249,251,.82);
   backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
-  border-bottom-color:var(--line);padding:13px var(--pad)}
+  border-bottom-color:var(--line);
+  padding:13px max(var(--pad),var(--safe-r)) 13px max(var(--pad),var(--safe-l))}
 .brand{display:flex;align-items:center;gap:12px;line-height:1}
 .brand-mono{width:36px;height:36px;display:grid;place-items:center;flex:none;
   border-radius:8px;background:var(--aqua-deep);color:#fff;
@@ -113,7 +121,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   box-shadow:0 6px 18px rgba(15,122,109,.24)}
 .nav-cta:hover{background:var(--wa-dark);transform:translateY(-1px);
   box-shadow:0 10px 24px rgba(15,122,109,.32)}
-.nav-toggle{display:none;flex-direction:column;gap:5px;padding:6px;z-index:110}
+.nav-toggle{display:none;flex:none;flex-direction:column;gap:5px;padding:6px;z-index:110}
 .nav-toggle span{width:22px;height:2px;background:var(--ink);display:block;border-radius:2px;
   transition:transform .3s, opacity .3s}
 .nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -144,10 +152,38 @@ html.clean .demo-bar, html.clean .nav-demo{display:none !important}
   color:var(--aqua-deep);letter-spacing:.08em;font-weight:700;white-space:nowrap;
   transition:background .25s,color .25s}
 .demo-all:hover{background:var(--aqua-deep);color:#fff}
+.demo-panel{display:contents}
+.demo-toggle{display:none}
+/* Mobil: anahtar katlanır. Kapalıyken tek bir 48px'lik hap; açıkken panel
+   yukarı doğru açılır. Alt CTA barının üstünde durur (--mbar-h + güvenli alan). */
 @media(max-width:860px){
-  .demo-bar{right:8px;left:8px;bottom:74px;justify-content:center;flex-wrap:wrap;
-    border-radius:14px;padding:8px}
+  .demo-bar{left:auto;right:calc(10px + var(--safe-r));
+    bottom:calc(var(--mbar-h) + var(--safe-b) + 10px);
+    padding:0;border:0;background:none;box-shadow:none;backdrop-filter:none;
+    -webkit-backdrop-filter:none;flex-direction:column;align-items:flex-end;gap:8px}
+  /* mobilde soluklaşma sınırlı: .8'de metin kontrastı 8.71:1 (AA ✓).
+     .55 denendi → 3.81:1 ile eşiğin altında kaldığı için kullanılmadı. */
+  .demo-bar.dim{opacity:.8}
   .demo-bar-t{display:none}
+  .demo-toggle{display:inline-flex;align-items:center;gap:8px;min-height:48px;
+    padding:0 18px;border-radius:100px;font-size:13px;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink);
+    background:rgba(255,255,255,.96);border:1px solid var(--line-2);
+    box-shadow:0 10px 30px rgba(22,32,43,.18);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  .demo-toggle .dot{width:9px;height:9px;border-radius:50%;flex:none;
+    background:var(--aqua-deep);box-shadow:0 0 0 3px rgba(46,147,184,.22)}
+  .demo-panel{display:none;order:-1;flex-direction:column;gap:10px;align-items:stretch;
+    width:min(280px,calc(100vw - 20px - var(--safe-l) - var(--safe-r)));
+    padding:12px;border-radius:14px;background:rgba(255,255,255,.97);
+    border:1px solid var(--line-2);box-shadow:0 18px 44px rgba(22,32,43,.22);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  .demo-bar.open .demo-panel{display:flex}
+  .demo-seg{width:100%}
+  .demo-seg button{flex:1;min-height:48px;font-size:13px;letter-spacing:.04em;
+    display:flex;align-items:center;justify-content:center}
+  .demo-all{min-height:48px;display:flex;align-items:center;justify-content:center;
+    font-size:13px;letter-spacing:.06em}
 }
 
 /* ============ HERO ============ */
@@ -430,14 +466,15 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
 
 /* ============ MOBİL SABİT CTA ÇUBUĞU ============ */
 .mbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:120;
-  padding:9px 10px calc(9px + env(safe-area-inset-bottom));gap:9px;
+  padding:9px calc(10px + var(--safe-r)) calc(9px + var(--safe-b)) calc(10px + var(--safe-l));
+  gap:9px;
   background:rgba(255,255,255,.96);border-top:1px solid var(--line);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   box-shadow:0 -6px 24px rgba(22,32,43,.10)}
 .mbar a{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:14px 10px;border-radius:8px;font-size:11.5px;letter-spacing:.1em;
-  text-transform:uppercase;font-weight:800}
-.mbar svg{width:17px;height:17px;flex:none}
+  min-height:50px;padding:12px 10px;border-radius:9px;font-size:13px;letter-spacing:.08em;
+  text-transform:uppercase;font-weight:800;line-height:1.2}
+.mbar svg{width:19px;height:19px;flex:none}
 .mbar .m-wa{background:var(--wa);color:#fff}
 .mbar .m-tel{background:var(--surface);color:var(--ink);border:1px solid var(--line-2)}
 
@@ -461,12 +498,15 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
 /* sıkılaştırılmış nav ~1120px ister; altında hamburger'e geç */
 @media(max-width:1160px){
   .nav-links,.nav-cta{display:none}
-  .nav-toggle{display:flex}
+  .nav-toggle{display:flex;width:44px;height:44px;padding:0;
+    align-items:center;justify-content:center}
   .nav.open .nav-menu{display:flex}
-  .nav-menu{display:none;position:fixed;inset:77px 0 0;background:rgba(247,249,251,.98);
-    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-    flex-direction:column;align-items:stretch;padding:30px min(6vw,56px);gap:0;overflow-y:auto}
-  .nav.scrolled .nav-menu{inset:63px 0 0}
+  /* --nav-h JS ile ölçülür (marka satırı sarabilir) → menü her zaman navın altında açılır */
+  /* Zemin tam opak: yarı saydam + backdrop-filter, altındaki oynayan hero videosu
+     ayrı bir compositing katmanında olduğu için menüyü kırpıyordu. */
+  .nav-menu{display:none;position:fixed;inset:var(--nav-h,77px) 0 0;background:var(--paper);
+    flex-direction:column;align-items:stretch;padding:30px min(6vw,56px);gap:0;overflow-y:auto;
+    overscroll-behavior:contain}
   .nav-menu .nav-links{display:flex;flex-direction:column;gap:0}
   .nav-menu .nav-links a{font-size:16px;letter-spacing:.12em;color:var(--ink);
     padding:16px 0;border-bottom:1px solid var(--line)}
@@ -486,25 +526,93 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
   .scrub-card{left:22px;right:22px;width:auto;bottom:12vh;padding:24px 22px}
   .scrub-card h3{font-size:22px}
 }
+/* =========================================================
+   MOBİL (≤860px)  —  dokunma hedefi ≥44px, yazı ≥13px (gövde ≥16px),
+   güvenli alan (çentik) payları, sabit alt bar.
+   Masaüstü görünümü bu bloğun dışında kalır.
+   ========================================================= */
 @media(max-width:860px){
   .mbar{display:flex}
-  body{padding-bottom:74px}
+  body{padding-bottom:calc(var(--mbar-h) + var(--safe-b))}
   .scroll-cue{display:none}
+
+  /* --- güvenli alan (yatay modda çentik tarafı) --- */
+  .section,.contact,.demo-note{
+    padding-left:max(22px,var(--safe-l));padding-right:max(22px,var(--safe-r))}
+  footer{padding-left:max(var(--pad),var(--safe-l));padding-right:max(var(--pad),var(--safe-r))}
+  .hero-inner{padding-left:max(var(--pad),var(--safe-l));
+    padding-right:max(var(--pad),var(--safe-r))}
+  .stage{left:max(var(--pad),var(--safe-l));right:max(var(--pad),var(--safe-r))}
+  .scrub-card{left:max(22px,var(--safe-l));right:max(22px,var(--safe-r))}
+
+  /* --- yapışkan başlık: mobilde daha alçak, dokunma hedefleri 44px --- */
+  .nav{padding-top:10px;padding-bottom:10px}
+  .nav.scrolled{padding-top:8px;padding-bottom:8px}
+  .brand{min-height:44px}
+  .brand-sub{font-size:13px;letter-spacing:.06em;line-height:1.3}
+  .nav-menu{padding:26px max(22px,var(--safe-r)) calc(26px + var(--safe-b)) max(22px,var(--safe-l))}
+  .nav.open{background:var(--paper);border-bottom-color:var(--line)}
+  .nav.open ~ .demo-bar{display:none}   /* menü açıkken senaryo hapı karışmasın */
+  .nav-menu .nav-links a{font-size:16px;line-height:1.5;padding:15px 0;min-height:52px;
+    display:flex;align-items:center}
+  .nav-menu .nav-cta{font-size:13px;letter-spacing:.1em;min-height:50px;
+    align-items:center;padding:13px 20px}
+
+  /* --- düğmeler --- */
+  .btn{font-size:13px;letter-spacing:.1em;min-height:50px;padding:14px 22px;line-height:1.2}
+  .shop-cta .btn{padding:14px 18px;font-size:13px}
+
+  /* --- hero --- */
+  .hero-kick{font-size:13px;letter-spacing:.18em;line-height:1.5;margin-bottom:18px}
+  .hero-sub{font-size:16px;line-height:1.6}
+  .hero-facts{font-size:13px;line-height:1.5}
+
+  /* --- scroll-scrub sahnesi --- */
+  .stage-num{font-size:13px;letter-spacing:.2em;line-height:1.5}
+  .stage p{font-size:16px;line-height:1.6}
+  .scrub-card .loc{font-size:13px;letter-spacing:.12em;line-height:1.5}
+  .scrub-specs .l{font-size:13px;letter-spacing:.08em;line-height:1.5}
+  .scrub-hint{font-size:13px;letter-spacing:.16em;line-height:1.5}
+
+  /* --- bölümler --- */
+  .kick{font-size:13px;letter-spacing:.2em;line-height:1.5}
+  .prod-meta{font-size:13px;letter-spacing:.16em;line-height:1.5}
+  .prod-desc{font-size:16px;line-height:1.6}
+  .prod-ask{font-size:13px;letter-spacing:.12em;min-height:44px;align-items:center;
+    margin-top:4px}
+  .why-card p{font-size:16px;line-height:1.6}
+  .stat .lbl{font-size:13px;letter-spacing:.1em;line-height:1.5}
+  .stats-note{font-size:14px;line-height:1.6}
+  .step .n{font-size:13px;letter-spacing:.2em;line-height:1.5}
+  .step p{font-size:16px;line-height:1.6}
+  .shop-tag{font-size:13px;letter-spacing:.16em;line-height:1.5}
+  .shop-row{font-size:16px;line-height:1.55}
+  .shop-row .k{font-size:13px;letter-spacing:.12em;line-height:1.5}
+  .shop-row a{display:inline-flex;align-items:center;min-height:44px}
+  .tile-lbl{font-size:13px;letter-spacing:.16em;line-height:1.5}
+  .tile-sub{font-size:14px;line-height:1.55}
+  .tile-val a{display:inline-flex;align-items:center;min-height:44px}
+  .tbc{font-size:13px;line-height:1.5;padding:3px 8px}
+  .demo-note b{font-size:13px;letter-spacing:.16em;line-height:1.5}
+  .demo-note p{font-size:16px;line-height:1.6}
+
+  /* --- footer --- */
+  .foot-links{gap:4px 22px}
+  .foot-links a{font-size:13px;letter-spacing:.12em;display:inline-flex;align-items:center;
+    min-height:44px}
+  .foot-copy{font-size:13px;line-height:1.55}
 }
 @media(max-width:680px){
   :root{--pad:20px}
-  .nav{padding:14px 20px}
-  .nav.scrolled{padding:11px 20px}
   .brand-mono{width:32px;height:32px;font-size:17px}
-  .brand-name{font-size:15px;letter-spacing:.16em}
-  .brand-sub{font-size:8px;letter-spacing:.22em}
-  .nav-menu{inset:62px 0 0;padding:30px 22px}
-  .nav.scrolled .nav-menu{inset:56px 0 0}
-  .nav-menu .nav-links a{font-size:15px;padding:15px 0}
-  .hero-inner{padding-bottom:13vh}
+  .brand-name{font-size:15px;letter-spacing:.14em}
+  .brand-sub{font-size:13px;letter-spacing:.02em}
+  .hero-inner{padding-bottom:12vh}
+  .hero h1{font-size:clamp(32px,8.6vw,44px)}
   .hero-cta{gap:10px}
-  .hero-facts{gap:14px 20px;margin-top:26px;font-size:11.5px}
-  .btn{padding:13px 20px;font-size:10.5px;letter-spacing:.14em}
+  .hero-facts{gap:10px 20px;margin-top:22px}
+  .hero-cta .btn{flex:1 1 100%;justify-content:center}
+  .btn{padding:14px 18px;letter-spacing:.08em}
   .prod-grid{grid-template-columns:1fr}
   .why-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr;gap:28px 0}
@@ -515,6 +623,30 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
   .foot-copy{flex-direction:column;text-align:center}
   .scrub-specs{gap:9px}
   .scrub-specs .v{font-size:15px}
+}
+/* ≤360 px: marka alt satırı 13 px'te iki satıra sarıyor ve yapışkan başlığı
+   75 px'e çıkarıyordu. Navda gizlendi (footer'da ve hemen altındaki hero
+   kicker'ında aynı bilgi duruyor) → başlık 64 px'te kalıyor. */
+@media(max-width:360px){
+  .nav .brand-sub{display:none}
+  .brand-name{letter-spacing:.12em}
+}
+/* Yatay mod / alçak ekran (ör. 812×375): hero'yu navın altından başlat ki
+   başlık, alt metin ve CTA'lar ilk ekranda kalsın. */
+@media(max-height:560px) and (orientation:landscape){
+  .hero{min-height:0}
+  .hero-inner{justify-content:flex-start;
+    padding-top:calc(var(--nav-h,64px) + 14px);padding-bottom:16px}
+  .hero-kick{margin-bottom:10px}
+  .hero h1{font-size:clamp(24px,3.2vw,30px);margin-bottom:12px}
+  .hero-sub{max-width:none;margin-bottom:16px;font-size:16px;line-height:1.5}
+  .hero-facts{margin-top:14px;gap:8px 18px}
+  .hero-cta .btn{flex:0 1 auto}          /* yatayda yan yana kalsınlar */
+  .stick{height:100svh;min-height:360px}
+  .scrub-card{bottom:calc(var(--mbar-h) + var(--safe-b) + 10px);padding:16px 18px}
+  .scrub-card h3{font-size:19px}
+  .scrub-specs{padding:10px 0;margin-bottom:12px}
+  .scrub-hint{display:none}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -1044,16 +1176,23 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
 <!-- ===== DEMO SENARYO ANAHTARI — teslimde bu bloğu sil ===== -->
 <div class="demo-bar" id="demoBar">
   <span class="demo-bar-t">Senaryo</span>
-  <div class="demo-seg" data-group="h" role="group" aria-label="Hero videosu">
-    <button type="button" data-v="1">Banyo</button>
-    <button type="button" data-v="2">Su</button>
-    <button type="button" data-v="3">Showroom</button>
+  <!-- mobilde anahtar katlanır; masaüstünde bu düğme gizli -->
+  <button class="demo-toggle" type="button" id="demoToggle"
+          aria-expanded="false" aria-controls="demoPanel">
+    <span class="dot" aria-hidden="true"></span>Senaryo
+  </button>
+  <div class="demo-panel" id="demoPanel">
+    <div class="demo-seg" data-group="h" role="group" aria-label="Hero videosu">
+      <button type="button" data-v="1">Banyo</button>
+      <button type="button" data-v="2">Su</button>
+      <button type="button" data-v="3">Showroom</button>
+    </div>
+    <div class="demo-seg" data-group="s" role="group" aria-label="Scroll videosu">
+      <button type="button" data-v="a">Giriş</button>
+      <button type="button" data-v="b">Detay</button>
+    </div>
+    <a class="demo-all" href="senaryolar.html">6 senaryo ↗</a>
   </div>
-  <div class="demo-seg" data-group="s" role="group" aria-label="Scroll videosu">
-    <button type="button" data-v="a">Giriş</button>
-    <button type="button" data-v="b">Detay</button>
-  </div>
-  <a class="demo-all" href="senaryolar.html">6 senaryo ↗</a>
 </div>
 
 <script>
@@ -1095,37 +1234,95 @@ const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 const onScrollNav = () => nav.classList.toggle('scrolled', scrollY > 40);
 addEventListener('scroll', onScrollNav, {passive:true}); onScrollNav();
+/* mobil menü tam navın altından başlasın — marka satırı dar ekranda sarabildiği
+   için yükseklik sabit varsayılmaz, ölçülür. */
+const setNavH = () => document.documentElement.style
+  .setProperty('--nav-h', Math.round(nav.getBoundingClientRect().height) + 'px');
+setNavH();
+addEventListener('resize', setNavH, {passive:true});
+addEventListener('orientationchange', setNavH, {passive:true});
+nav.addEventListener('transitionend', setNavH);
+addEventListener('load', setNavH);
 
-navToggle.addEventListener('click', () => {
-  const open = nav.classList.toggle('open');
+function setMenu(open, focusToggle){
+  nav.classList.toggle('open', open);
   navToggle.setAttribute('aria-expanded', String(open));
-  document.body.style.overflow = open ? 'hidden' : '';
-});
-navMenu.addEventListener('click', e => {
-  if (e.target.closest('a')) {
-    nav.classList.remove('open');
-    navToggle.setAttribute('aria-expanded','false');
-    document.body.style.overflow = '';
+  navToggle.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+  document.body.style.overflow = open ? 'hidden' : '';   // arka plan kaydırması kilitli
+  // menü açıkken hero videosu boşuna dönmesin (pil + compositing)
+  if (heroVideo && heroVideo.isConnected){
+    open ? heroVideo.pause() : heroVideo.play().catch(()=>{});
   }
+  if (open){
+    const first = navMenu.querySelector('a');
+    if (first) first.focus({preventScroll:true});
+  } else if (focusToggle) {
+    navToggle.focus({preventScroll:true});
+  }
+}
+navToggle.addEventListener('click', () => setMenu(!nav.classList.contains('open'), false));
+navMenu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false, false); });
+// Esc ile kapan + odak menünün içinde dolaşsın
+addEventListener('keydown', e => {
+  if (!nav.classList.contains('open')) return;
+  if (e.key === 'Escape'){ e.preventDefault(); setMenu(false, true); return; }
+  if (e.key !== 'Tab') return;
+  const f = [navToggle].concat([...navMenu.querySelectorAll('a')])
+    .filter(el => el.offsetParent !== null);
+  if (!f.length) return;
+  const first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
 });
+// masaüstüne genişlerse menü açık kalmasın (kilit de çözülsün)
+const mqNav = matchMedia('(min-width:1161px)');
+(mqNav.addEventListener ? mqNav.addEventListener('change', e => { if (e.matches) setMenu(false,false); })
+                        : mqNav.addListener(e => { if (e.matches) setMenu(false,false); }));
 
-/* ---------- HERO VIDEO: senaryoya göre kaynak, yoksa fallback ---------- */
+/* ---------- HERO VIDEO ----------
+   <source> listesi BIRAKILMADI: iOS Safari webm'i "destekliyorum" deyip seçtikten
+   sonra çözemezse <source> hatası tetiklenmez ve video sessizce donuk kalır.
+   Format canPlayType ile seçilir (Safari → daima mp4), TEK src verilir, error
+   olayında diğer formata geçilir. Otomatik oynatma engellenirse (iOS Düşük Güç
+   Modu) ilk dokunuşta başlatılır.
+   Mobilde 900px genişliğinde hafif kopya (media/heroN-m.*) indirilir. */
+const VFMT = (() => {
+  const t = document.createElement('video');
+  const webm = t.canPlayType('video/webm; codecs="vp9"');
+  const mp4  = t.canPlayType('video/mp4; codecs="avc1.640028"') || t.canPlayType('video/mp4');
+  const apple = /iP(hone|od|ad)/.test(navigator.userAgent)
+    || (navigator.maxTouchPoints > 1 && /Mac/.test(navigator.userAgent))
+    || (/Safari/.test(navigator.userAgent) && !/Chrom|Android|Edg|OPR/.test(navigator.userAgent));
+  if (apple && mp4) return 'mp4';            // Safari: her zaman mp4
+  return webm === 'probably' ? 'webm' : (mp4 ? 'mp4' : 'webm');
+})();
 const heroVideo = document.getElementById('heroVideo');
 if (heroVideo){
-  if (reduced) heroVideo.remove();
+  const saveData = !!(navigator.connection && navigator.connection.saveData);
+  if (reduced || saveData) heroVideo.remove();     // → .hero-fallback görünür
   else {
-    [['media/hero' + HERO + '.webm','video/webm'],
-     ['media/hero' + HERO + '.mp4','video/mp4']].forEach(([src,type]) => {
-      const s = document.createElement('source'); s.src = src; s.type = type;
-      heroVideo.appendChild(s);
+    const small = innerWidth < 860 ? '-m' : '';    // mobil için hafif kopya
+    const base  = 'media/hero' + HERO + small;
+    let alt = VFMT === 'webm' ? 'mp4' : 'webm';
+    let blocked = false;
+    const vplay = () => { const p = heroVideo.play(); if (p && p.catch) p.catch(() => { blocked = true; }); };
+
+    heroVideo.src = base + '.' + VFMT;
+    heroVideo.addEventListener('error', () => {
+      if (alt){ const a = alt; alt = ''; heroVideo.src = base + '.' + a; heroVideo.load(); return; }
+      heroVideo.remove();                          // ikisi de açılmadı → fallback
     });
-    // hiçbir kaynak açılamazsa elementi kaldır → .hero-fallback görünür
-    heroVideo.addEventListener('error', () => heroVideo.remove(), true);
+    heroVideo.addEventListener('loadeddata', vplay);
     heroVideo.load();
-    heroVideo.play().catch(()=>{});
+    vplay();
+
+    // otomatik oynatma engellendiyse ilk dokunuş/tıklamada başlat
+    const resume = () => { if (blocked && heroVideo.isConnected){ blocked = false; vplay(); } };
+    ['touchstart','click','keydown'].forEach(e => addEventListener(e, resume, {passive:true}));
+
     document.addEventListener('visibilitychange', () => {
       if (!heroVideo.isConnected) return;
-      document.hidden ? heroVideo.pause() : heroVideo.play().catch(()=>{});
+      document.hidden ? heroVideo.pause() : vplay();
     });
   }
 }
@@ -1150,12 +1347,15 @@ COPY[SCRL].forEach((row, i) => {
   const ctx = canvas.getContext('2d', {alpha:false});
 
   const FRAME_COUNT = 120;                     // ffmpeg fps ile BİREBİR aynı olmalı
-  const FRAME_PATH  = i => 'frames/' + SCRL + '/' + String(i).padStart(4,'0') + '.jpg';
-  const isMobile    = innerWidth < 768;
+  /* Mobilde ayrı kare seti: frames/<a|b>/m/ (1000px, ~25 KB) + STEP=2.
+     Masaüstü 1440px seti 120 kare ≈ 6 MB; mobil set 60 kare ≈ 1.5 MB. */
+  const isMobile    = innerWidth < 860;
+  const FRAME_DIR   = 'frames/' + SCRL + (isMobile ? '/m/' : '/');
+  const FRAME_PATH  = i => FRAME_DIR + String(i).padStart(4,'0') + '.jpg';
   const STEP        = isMobile ? 2 : 1;        // mobilde kareyi seyrelt → yarı bant genişliği
 
   const imgs = new Array(FRAME_COUNT + 1);
-  let loaded = 0, failed = 0, framesReady = false;
+  let loaded = 0, failed = 0, framesReady = false, preloadStarted = false;
 
   /* --- resize --- */
   let W = 0, H = 0;
@@ -1168,14 +1368,26 @@ COPY[SCRL].forEach((row, i) => {
   }
   function reflow(){ resize(); lastP = -1; render(); }
 
-  /* --- preload --- */
-  for (let i = 1; i <= FRAME_COUNT; i += STEP){
-    const im = new Image();
-    im.decoding = 'async';
-    im.onload  = () => { if (++loaded >= Math.floor(FRAME_COUNT/STEP * 0.6)) framesReady = true; };
-    im.onerror = () => { failed++; };
-    im.src = FRAME_PATH(i);
-    imgs[i] = im;
+  /* --- preload: sahne yaklaşana kadar tek kare bile inmez ---
+     Hero'yu görüntüleyen ama aşağı inmeyen ziyaretçi kare verisi indirmez. */
+  let poll = null, polls = 0;
+  function preload(){
+    if (preloadStarted) return; preloadStarted = true;
+    for (let i = 1; i <= FRAME_COUNT; i += STEP){
+      const im = new Image();
+      im.decoding = 'async';
+      im.onload  = () => { if (++loaded >= Math.floor(FRAME_COUNT/STEP * 0.6)) framesReady = true; };
+      im.onerror = () => { failed++; };
+      im.src = FRAME_PATH(i);
+      imgs[i] = im;
+    }
+    // preload ilerledikçe yeniden çiz; kareler hazır ya da yoksa döngüyü kapat
+    poll = setInterval(() => {
+      lastP = -1; render();
+      if (framesReady || failed > 3 || ++polls > 25){   // ~10 sn sonra pes et
+        settled = true; clearInterval(poll);
+      }
+    }, 400);
   }
 
   /* --- progress --- */
@@ -1314,7 +1526,8 @@ COPY[SCRL].forEach((row, i) => {
       hint.style.opacity   = (1 - band(p, 0.02, 0.12)).toFixed(3);
       bar.style.width      = (p * 100).toFixed(2) + '%';
     }
-    if (!settled && !framesReady) requestAnimationFrame(render);  // preload biterken canlı kal
+    // preload biterken canlı kal — ama preload başlamadan boşuna rAF yakma
+    if (preloadStarted && !settled && !framesReady) requestAnimationFrame(render);
   }
   function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(render); } }
 
@@ -1330,14 +1543,18 @@ COPY[SCRL].forEach((row, i) => {
   }).observe(canvas);
   // arka plan sekmesinde yüklendiyse rAF/ResizeObserver askıdadır; öne gelince toparla
   document.addEventListener('visibilitychange', () => { if (!document.hidden) reflow(); });
-  // preload ilerledikçe yeniden çiz; kareler hazır ya da yoksa döngüyü kapat
-  let polls = 0;
-  const poll = setInterval(() => {
-    lastP = -1; render();
-    if (framesReady || failed > 3 || ++polls > 25){   // ~10 sn sonra pes et
-      settled = true; clearInterval(poll);
-    }
-  }, 400);
+
+  /* Kareler sahne gerçekten yaklaşınca inmeye başlar. Sahne hero'nun hemen
+     altında (100svh) olduğu için pozitif rootMargin sayfa açılır açılmaz
+     tetiklenirdi; bu yüzden alt kenar %40 kısaltıldı → preload ancak ziyaretçi
+     ekranın ~%40'ı kadar kaydırınca başlar. Hero'da kalan kimse kare indirmez. */
+  if (self.IntersectionObserver){
+    new IntersectionObserver((es, o) => {
+      if (es.some(e => e.isIntersecting)){ o.disconnect(); preload(); }
+    }, {rootMargin: '0px 0px -40% 0px'}).observe(scene);
+  } else {
+    preload();
+  }
 })();
 
 /* ---------- REVEAL ---------- */
@@ -1413,10 +1630,25 @@ if (qs.get('clean') === '1') document.documentElement.classList.add('clean');
     }
   } catch(e){}
 
+  /* mobilde katlanır: kapalıyken tek düğme, alt CTA barının üstünde durur */
+  const dToggle = document.getElementById('demoToggle');
+  const setDemo = open => {
+    bar.classList.toggle('open', open);
+    dToggle.setAttribute('aria-expanded', String(open));
+    if (open) bar.classList.remove('dim');
+  };
+  dToggle.addEventListener('click', () => setDemo(!bar.classList.contains('open')));
+  addEventListener('keydown', e => {
+    if (e.key === 'Escape' && bar.classList.contains('open')){ setDemo(false); dToggle.focus(); }
+  });
+  document.addEventListener('click', e => {
+    if (bar.classList.contains('open') && !bar.contains(e.target)) setDemo(false);
+  });
+
   // okumayı engellemesin: scroll dururken soluklaş
   let t;
   const wake = () => { bar.classList.remove('dim'); clearTimeout(t);
-    t = setTimeout(() => bar.classList.add('dim'), 2200); };
+    t = setTimeout(() => { if (!bar.classList.contains('open')) bar.classList.add('dim'); }, 2200); };
   addEventListener('scroll', wake, {passive:true});
   bar.addEventListener('pointerenter', () => { clearTimeout(t); bar.classList.remove('dim'); });
   wake();

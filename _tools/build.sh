@@ -42,6 +42,26 @@ for PAIR in "1 a" "2 b"; do
     -q:v 4 -frames:v 120 "frames/$L/%04d.jpg"
 done
 
+# ---------- MOBİL SET ----------
+# Mobilde (innerWidth < 860) site bu hafif kopyaları ister:
+#   media/heroN-m.mp4|webm   900px  → hero başına 0.30–0.50 MB (masaüstü 0.9–1.5 MB)
+#   frames/<a|b>/m/%04d.jpg  1000px → STEP=2 ile 60 kare ≈ 1.5 MB (masaüstü 6 MB)
+for N in 1 2 3; do
+  echo ">>> hero$N: mobil kopya"
+  "$FF" -y -v error -i "media/hero$N.mp4" -an -vf "scale=900:-2" \
+    -c:v libx264 -crf 30 -preset slow -pix_fmt yuv420p -movflags +faststart \
+    "media/hero$N-m.mp4"
+  "$FF" -y -v error -i "media/hero$N-m.mp4" -an -c:v libvpx-vp9 -crf 40 -b:v 0 \
+    -row-mt 1 -deadline good -cpu-used 4 "media/hero$N-m.webm"
+done
+for L in a b; do
+  echo ">>> scroll $L: mobil kareler"
+  mkdir -p "frames/$L/m"; rm -f frames/$L/m/*.jpg
+  for F in frames/$L/[0-9]*.jpg; do
+    "$FF" -y -v error -i "$F" -vf "scale=1000:-2" -q:v 5 "frames/$L/m/$(basename "$F")"
+  done
+done
+
 # ---------- GALERİ ÖNİZLEMELERİ ----------
 # Ad tutarlılığı: kare klasörleri a/b olduğu için klipler de sa/sb (s1/s2 DEĞİL)
 for N in 1 2 3; do
