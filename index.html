@@ -662,17 +662,29 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
 /* DİKEY TELEFON: METİN VİDEONUN ÜSTÜNDE, BEYAZ PERDE YOK.
    Mert iki denemeyi de gördü: tam beyaz perde kabini siliyordu, metni videonun
    üstünden alıp kağıt zemine koymak da istenmedi. Videolar zaten çok aydınlık
-   (beyaz banyo), bu yüzden koyu metin perdesiz de okunuyor; perde yerine
-   yalnızca harflerin çevresinde yumuşak bir açık hale var — zemin değil.
+   (beyaz banyo), bu yüzden koyu metin ağır perde olmadan okunuyor.
    Kontrast gerçek karelerde ölçüldü (README). */
 @media(max-width:860px) and (orientation:portrait){
-  .hero-scrim{display:none}
-  .hero-inner{text-shadow:0 0 16px rgba(255,255,255,.8),0 0 4px rgba(255,255,255,.7)}
-  .hero-sub,.hero-facts,.hero-kick{color:var(--ink)}
-  /* --aqua-dark videonun gri karelerinde 1.8–3.2:1'e düşüyordu → vurgu için
-     çok koyu petrol; en kötü karede 3.4:1 (büyük punto eşiği 3:1) */
-  .hero h1 em{color:#0a3444}
-  .hero-cta .btn-ghost{color:#0a3444}
+  /* Hale (text-shadow) kaldırıldı: harfleri bulanık ve ucuz gösteriyordu.
+     Yerine üstte neredeyse görünmeyen bir aydınlatma var (en fazla %34, metnin
+     bittiği yerde sıfır) — zemin değil, videonun kendi tonunu biraz kaldırıyor.
+     Harfler keskin, düz koyu mürekkep. */
+  .hero-scrim{display:block;background:linear-gradient(180deg,
+      rgba(255,255,255,.34) 0%,rgba(255,255,255,.3) 40%,rgba(255,255,255,0) 58%)}
+  .hero-inner{text-shadow:none}
+  /* üst etiket navdaki alt satırın birebir tekrarıydı → kaldırıldı */
+  .hero-kick{display:none}
+  .hero-inner{padding-top:calc(var(--nav-h,64px) + 18px)}
+  /* başlık dengeli kırılsın ("olsun," tek başına kalmasın), satır arası nefes alsın */
+  .hero .hero-inner h1{color:var(--ink);letter-spacing:-.02em;line-height:1.14;margin-bottom:12px;
+    text-wrap:balance}
+  .hero h1 br{display:none}
+  .hero h1 em{display:block;color:#0a3444;text-wrap:balance}
+  .hero-sub{color:var(--ink);font-weight:500;line-height:1.5;margin-bottom:4px}
+  .hero-cta .btn-ghost{color:var(--ink);text-decoration-color:rgba(22,32,43,.4)}
+  /* madde işaretli üç kısa bilgi ilk ekranı kalabalıklaştırıyordu; aynı
+     bilgiler hemen alttaki bölümlerde duruyor */
+  .hero-facts{display:none}
 }
 @media(max-width:680px){
   :root{--pad:20px}
