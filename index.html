@@ -659,6 +659,24 @@ footer{background:var(--surface-2);border-top:1px solid var(--line);padding:52px
     min-height:44px}
   .foot-copy{font-size:13px;line-height:1.55}
 }
+/* DİKEY TELEFON: METİN ÜSTTE KAĞIT ZEMİNDE, VİDEO ALTTA PERDESİZ.
+   Beyaz banyo videosunun üstüne beyaz perde çekmek kabini siliyordu (telefon
+   testi). Artık metin videonun üstünde değil: hero ikiye bölündü, video kalan
+   alanı perdesiz dolduruyor. Kutu daha az dikey olduğu için cover kırpması da
+   hafifledi (375 genişlikte kaynağın ~%50'si görünüyor, eskiden ~%26). */
+@media(max-width:860px) and (orientation:portrait){
+  .hero{display:flex;flex-direction:column;background:var(--paper)}
+  .hero-fallback{display:none}
+  .hero-scrim{display:none}
+  .hero-inner{order:0;flex:none;height:auto;padding-bottom:12px}
+  .hero-video{position:relative;inset:auto;order:1;flex:1 1 auto;min-height:0;height:auto;
+    background:var(--surface-2);
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 28px);
+            mask-image:linear-gradient(180deg,transparent 0,#000 28px)}
+  .hero-video[data-h="1"]{object-position:64% center}   /* kabin + el duşu ortada */
+  .hero-video[data-h="2"]{object-position:32% center}   /* tepe duşu + su */
+  .hero-video[data-h="3"]{object-position:72% center}   /* kabin sırası */
+}
 @media(max-width:680px){
   :root{--pad:20px}
   .brand-mono{width:32px;height:32px;font-size:17px}
